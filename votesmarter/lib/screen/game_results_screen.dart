@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:spider_chart/spider_chart.dart';
+import '../state/game_state.dart';
 
 class GameResultsScreen extends StatefulWidget {
-  
+
+  final GameState state;
+  GameResultsScreen({this.state});
+
   // DUMMY VALUES,
   final ticks = [1, 5, 10];
+
   final features = ["Civics", "Issues", "Candidates", "Wildcard"];
   final data = [4.0, 6.0, 10.0, 5.0];
   final score = 197;
@@ -88,13 +93,12 @@ class _GameResultsScreenState extends State<GameResultsScreen> {
               onPressed: () {
                 // RETURN HOME
               },
-              child: Text('return to home'),
+              child: Text('Finish'),
               elevation: 4,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
               color: Colors.orange,
-
             ),
           ),
         ],
