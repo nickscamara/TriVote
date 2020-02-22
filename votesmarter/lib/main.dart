@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:votesmarter/screen/game_results_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:votesmarter/screen/home_screen.dart';
 import 'package:votesmarter/screen/test_game_screen.dart';
@@ -13,7 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: GameResultsScreen(),
       theme: appTheme,
       home: HomeScreen(),
     );
