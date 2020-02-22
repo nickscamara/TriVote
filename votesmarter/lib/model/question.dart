@@ -1,16 +1,18 @@
 class Question{
   String question;
   List<String> answers;
-  int correctAnswerIndex;
+  String correctAnswer;
+  List<String> incorrectAnswers;
   String sourceURL;
   String explanation;
   String type;
   Question({
       this.question,
       this.answers,
-      this.correctAnswerIndex,
+      this.correctAnswer,
       this.sourceURL,
       this.explanation, 
+      this.incorrectAnswers,
       this.type,
       });
     String getQuestion()
@@ -19,7 +21,7 @@ class Question{
     }
     String getCorrectAnswer()
     {
-      return this.answers[this.correctAnswerIndex];
+      return this.correctAnswer;
     }
     String getSourceURL()
     {

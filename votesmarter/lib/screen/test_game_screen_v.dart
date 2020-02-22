@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 
 import 'dart:ui';
 
+import 'package:votesmarter/model/question.dart';
+import 'package:votesmarter/screen/question_screen.dart';
+
 class Luck{
   final String image;
   final Color color;
@@ -45,28 +48,56 @@ class _TestGameScreenVState extends State<TestGameScreenV>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Theme.of(context).primaryColor, Colors.purpleAccent])),
-        child: AnimatedBuilder(
-            animation: _ani,
-            builder: (context, child) {
-              final _value = _ani.value;
-              final _angle = _value * this._angle;
-              return Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  BoardView(items: _items, current: _current, angle: _angle),
-                  _buildGo(),
-                  _buildResult(_value),
-                ],
-              );
-            }),
-      ),
+    return Stack(
+      children: <Widget>[
+        Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Theme.of(context).primaryColor, Colors.purpleAccent])),
+            child: AnimatedBuilder(
+                animation: _ani,
+                builder: (context, child) {
+                  final _value = _ani.value;
+                  final _angle = _value * this._angle;
+                  return Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      BoardView(items: _items, current: _current, angle: _angle),
+                      _buildGo(),
+                      _buildResult(_value),
+                    ],
+                  );
+                }),
+          ),
+          RawMaterialButton(child: Text("Answer"),onPressed: () {
+            Navigator.of(context).push(new MaterialPageRoute<Null>(
+  builder: (BuildContext context) {
+    return new QuizPage(
+      questions: [
+        Question(
+          question: "What is the name of America?", incorrectAnswers: ["Pegasus","Coconut","Trump"],
+          correctAnswer: "Arlinda",sourceURL: "idjadawdada",explanation: "awdadwa",
+          type: "awdawdadawawd"
+        ),
+        Question(
+          question: "What is the name of America?",answers: ["yes","no"],
+          correctAnswer: "yes",incorrectAnswers: ["no"],sourceURL: "idjadawdada",explanation: "awdadwa",
+          type: "awdawdadawawd"
+        ),
+        Question(
+          question: "What is the name of America?",answers: ["yes","no"],
+          correctAnswer: "yes",incorrectAnswers: ["no"],sourceURL: "idjadawdada",explanation: "awdadwa",
+          type: "awdawdadawawd"
+        ),
+      ],
+    );
+  },
+  fullscreenDialog: true
+));
+          },)
+      ],
     );
   }
 
