@@ -31,7 +31,6 @@ class TestGameWidget extends StatelessWidget {
               dividers: 4,
               onUpdate: _dividerController.add,
               onEnd: _dividerController.add,
-             
             ),
             SizedBox(height: 30),
             StreamBuilder(
@@ -70,14 +69,11 @@ class RouletteScore extends StatelessWidget {
   final int selected;
 
   final Map<int, String> labels = {
-    1: '1000\$',
-    2: '400\$',
-    3: '800\$',
-    4: '7000\$',
-    5: '5000\$',
-    6: '300\$',
-    7: '2000\$',
-    8: '100\$',
+    1: 'Candidates',
+    2: 'Civic',
+    3: 'Issues',
+    4: 'Bonus',
+   
   };
 
   RouletteScore(this.selected);
