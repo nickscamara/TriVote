@@ -13,7 +13,6 @@ class Question{
       this.explanation, 
       this.type,
       });
-
     String getQuestion()
     {
       return this.question;
