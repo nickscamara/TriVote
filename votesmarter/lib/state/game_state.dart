@@ -233,7 +233,7 @@ class GameState {
   int _lives;
   get currentNumberOfLives => _lives;
 
-  bool done = false;
+  bool done;
 
   bool gameIsFinished() {
     return _lives == 0 || done;
@@ -282,7 +282,7 @@ class GameState {
     }
     if (questions[this._topic] != null && questions[this._topic].length != 1) {
       questions[this._topic].remove(proposedQuestion);
-    } else {
+    } else if (questions[this._topic].length == 1) {
       // We won
       done = true;
       return null;
@@ -315,6 +315,7 @@ class GameState {
   }
 
   GameState() {
+    done = false;
     _topic = "";
     _currentGameRound = 1;
     _lives = 5;
