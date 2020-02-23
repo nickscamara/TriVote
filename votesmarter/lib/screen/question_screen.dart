@@ -6,7 +6,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:votesmarter/state/game_state.dart';
 
 class QuizPage extends StatefulWidget {
-  GameState state;
+  final GameState state;
   QuizPage({Key key, @required this.state}) : super(key: key);
 
   @override
