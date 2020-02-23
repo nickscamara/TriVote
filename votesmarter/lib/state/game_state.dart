@@ -46,7 +46,7 @@ class GameState {
               "https://www.history.com/topics/us-government/judicial-branch",
           categoryName: "civics",
           explanation:
-              "The judicial branch includes any type of governmental court, and is responsible for ensuring that the law is interpreted correctly. ",
+              "The judicial branch includes any type of governmental court, and is responsible for ensuring that the law is interpreted correctly.",
           funFact:
               "The Supreme court is the highest court, meaning it can overturn any other courts decision."),
       Question(
@@ -58,17 +58,17 @@ class GameState {
               "https://www.whitehouse.gov/about-the-white-house/the-executive-branch/",
           categoryName: "civics",
           explanation:
-              "The president is the head of the executive branch, which is responsible for the execution and implementation of federal law.",
+              "The President is the head of the executive branch, which is responsible for the execution and implementation of federal law.",
           funFact:
-              " Franklin D. Roosevelt was the only president to ever serve more than 8 years in office."),
+              "Franklin D. Roosevelt was the only president to ever serve more than 8 years in office."),
       Question(
           question: "What is a referendum?",
           incorrectAnswers: [
-            "A meeting of party leaders or party members to select candidates, or establish the party’s policy position",
-            "Any type of election is considered a referendum "
+            "A meeting of party leaders or party members to select a parties candidates",
+            "Any type of election is considered a referendum"
           ],
           correctAnswer:
-              "A general vote by the electorate on a single political question, instead of a candidate",
+              "A vote on a single political question, instead of a candidate",
           sourceURL: "https://en.wikipedia.org/wiki/Referendum",
           categoryName: "civics",
           explanation:
@@ -131,11 +131,11 @@ class GameState {
           question:
               "What did the “Defense of Marriage Act” prevent the federal government from doing?",
           incorrectAnswers: [
-            "Legally ecognize any marriages between humans and animals or inanimate objects",
-            "Legally recognize any marriages between transgender couples for the purpose of federal laws or programs"
+            "Recognize any marriages between humans and animals or inanimate objects",
+            "Recognize any marriages between transgender couples"
           ],
           correctAnswer:
-              "Legally recognize any marriages between same sex couples",
+              "Recognize any marriages between same sex couples",
           sourceURL: "https://www.glaad.org/marriage/doma",
           categoryName: "policy",
           explanation:
@@ -167,9 +167,9 @@ class GameState {
               "https://www.pgpf.org/chart-archive/0070_discretionary_spending_categories",
           categoryName: "policy",
           explanation:
-              "45% of the us discretionary spending budget is spent on Defense",
+              "45% of the discretionary spending budget is spent on Defense",
           funFact:
-              "45% of the us discretionary spending budget is spent on Defense"),
+              "45% of the discretionary spending budget is spent on Defense"),
     ],
     "assets/img/candidates.png": [
       Question(

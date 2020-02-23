@@ -48,8 +48,24 @@ class _QuizPageState extends State<QuizPage> {
         centerTitle: true,
         automaticallyImplyLeading: false,
         backgroundColor: widget.backgroundColor,
+
         title: Text(question.categoryName.toString().toUpperCase()),
         
+
+        actions: <Widget>[
+          Center(
+              child: GestureDetector(
+            onTap: () {
+              widget.state.decrementLives();
+              Navigator.pop(context);
+            },
+            child: Text(
+              "Pop",
+              style: TextStyle(fontSize: 20),
+            ),
+          ))
+        ],
+
         elevation: 0,
       ),
       body: Stack(
