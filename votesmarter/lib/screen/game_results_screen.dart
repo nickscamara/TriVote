@@ -3,6 +3,7 @@ import 'package:spider_chart/spider_chart.dart';
 import '../state/game_state.dart';
 
 class GameResultsScreen extends StatefulWidget {
+
   final GameState state;
   GameResultsScreen({this.state});
 
@@ -24,7 +25,7 @@ class _GameResultsScreenState extends State<GameResultsScreen> {
     ];
     double score = widget.state.calculateTotalScore;
     String informed;
-    if (score > 5) informed = " informed.";
+    if (score > 450) informed = " informed.";
     else informed = " not informed.";
     return Scaffold(
       appBar: PreferredSize(
