@@ -141,22 +141,22 @@ class GameState {
               "The Defense of Marriage Act was passed in 1996 by Congress and signed into law by President Bill Clinton",
           funFact:
               "The Defense of Marriage Act was passed in 1996 by Congress and signed into law by President Bill Clinton"),
-      Question(
-          question:
-              "What did the “Voting Rights Act of 1965” suspend the use of?",
-          incorrectAnswers: [
-            "Monitored voting",
-            "Weighted polling",
-            "Knowledge tests"
-          ],
-          correctAnswer: "Literacy tests",
-          sourceURL:
-              "https://history.house.gov/Exhibitions-and-Publications/HAIC/Historical-Data/Constitutional-Amendments,-Treaties,-and-Major-Acts/",
-          categoryName: "policy",
-          explanation:
-              "Literacy tests required voters to prove their literacy before being allowed to vote. In practice, these tests were designed to disenfranchise racial minorities",
-          funFact:
-              "Literacy tests required voters to prove their literacy before being allowed to vote. In practice, these tests were designed to disenfranchise racial minorities"),
+      // Question(
+      //     question:
+      //         "What did the “Voting Rights Act of 1965” suspend the use of?",
+      //     incorrectAnswers: [
+      //       "Monitored voting",
+      //       "Weighted polling",
+      //       "Knowledge tests"
+      //     ],
+      //     correctAnswer: "Literacy tests",
+      //     sourceURL:
+      //         "https://history.house.gov/Exhibitions-and-Publications/HAIC/Historical-Data/Constitutional-Amendments,-Treaties,-and-Major-Acts/",
+      //     categoryName: "policy",
+      //     explanation:
+      //         "Literacy tests required voters to prove their literacy before being allowed to vote. In practice, these tests were designed to disenfranchise racial minorities",
+      //     funFact:
+      //         "Literacy tests required voters to prove their literacy before being allowed to vote. In practice, these tests were designed to disenfranchise racial minorities"),
       Question(
           question:
               "What is the leading cause of discretionary spending by the federal government?",
