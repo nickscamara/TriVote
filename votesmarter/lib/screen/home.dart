@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:votesmarter/screen/home_screen.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:votesmarter/screen/leaderboard_screen.dart';
+import 'package:votesmarter/screen/profile_screen.dart';
 import 'package:votesmarter/widgets/navbar.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 class Home extends StatefulWidget {
@@ -23,9 +24,7 @@ class _HomeState extends State<Home> {
       //MainGame(),
       
       LeaderBoardScreen(),
-      Scaffold(
-        body: Text("daw"),
-      ),
+      ProfileScreen(),
     ];
     super.initState();
     _selectedNavIndex = 0;
@@ -40,7 +39,11 @@ class _HomeState extends State<Home> {
     if(index == 2)
     {
       return "Leaderboard";
-    }else
+    } else if(index == 3)
+    {
+      return "Leaderboard";
+    }
+    else
     {
       return "TriVote";
     }

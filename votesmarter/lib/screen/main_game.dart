@@ -38,42 +38,46 @@ class _MainGameState extends State<MainGame>
                 builder: (context) => GameResultsScreen(state: widget.state)))
         : Scaffold(
             resizeToAvoidBottomPadding: false,
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              centerTitle: true,
-              title: Text('Round ' + widget.state.currentGameRound.toString()),
-              elevation: 0,
-              leading:  Material(
-                    color: Colors.amber,
-                    shape: CircleBorder(),
-                    // child: Icon(Icons.person,
-                    //     color: Colors.white, size: 20.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.amber,
-                        radius: 25,
-                        backgroundImage: AssetImage("assets/sawyer.jpeg"),
-                      ),
-                    )),
-              actions: <Widget>[
+             appBar: 
+           AppBar(
+                  automaticallyImplyLeading: false,
+                  centerTitle: true,
+                  title: Text('ROUND ' + widget.state.currentGameRound.toString(),style: TextStyle(fontWeight: FontWeight.bold),),
+                  elevation: 0,
+                  leading:  Material(
+                        color: Colors.amber,
+                        shape: CircleBorder(),
+                        // child: Icon(Icons.person,
+                        //     color: Colors.white, size: 20.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.amber,
+                            radius: 15,
+                            backgroundImage: AssetImage("assets/sawyer.jpeg"),
+                          ),
+                        )),
+                  actions: <Widget>[
+                    
+                   
+                         Material(
+                        color: Colors.amber,
+                        shape: CircleBorder(),
+                        // child: Icon(Icons.person,
+                        //     color: Colors.white, size: 20.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.amber,
+                            radius: 25,
+                            backgroundImage: AssetImage("assets/caleb.jpeg",),
+                          ),
+                        )),
+                        
+                  ],
                 
-               
-                     Material(
-                    color: Colors.amber,
-                    shape: CircleBorder(),
-                    // child: Icon(Icons.person,
-                    //     color: Colors.white, size: 20.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.amber,
-                        radius: 25,
-                        backgroundImage: AssetImage("assets/caleb.jpeg",),
-                      ),
-                    )),
-              ],
             ),
+             
             body: Container(
               child: Stack(
                 children: <Widget>[
@@ -109,6 +113,7 @@ class _MainGameState extends State<MainGame>
                 ],
               ),
             ),
-          );
+        );
+            
   }
 }
