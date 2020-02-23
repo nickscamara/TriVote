@@ -8,7 +8,8 @@ import 'package:votesmarter/state/game_state.dart';
 class QuizPage extends StatefulWidget {
   final GameState state;
   final Color backgroundColor;
-  QuizPage({Key key, @required this.state, this.backgroundColor}) : super(key: key);
+  QuizPage({Key key, @required this.state, this.backgroundColor})
+      : super(key: key);
 
   @override
   _QuizPageState createState() => _QuizPageState();
@@ -28,10 +29,9 @@ class _QuizPageState extends State<QuizPage> {
     super.initState();
     question = widget.state.getQuestionByTopic();
   }
+
   @override
   Widget build(BuildContext context) {
-    
-
     final TextStyle _questionStyle = TextStyle(
         fontSize: 30.0, fontWeight: FontWeight.w500, color: Colors.black);
     final List<dynamic> options = question.incorrectAnswers;
@@ -41,23 +41,12 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     return Scaffold(
-        key: _key,
-        appBar: AppBar(
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          backgroundColor: widget.backgroundColor,
-          actions: <Widget>[
-            Center(
-                child: GestureDetector(
-                  onTap: (){ 
-                    widget.state.decrementLives();
-                    Navigator.pop(context);},
-                                  child: Text(
-              "Pop",
-              style: TextStyle(fontSize: 20),
-            ),
-          ))
-        ],
+      key: _key,
+      appBar: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        backgroundColor: widget.backgroundColor,
+        actions: <Widget>[],
         elevation: 0,
       ),
       body: Stack(
@@ -135,7 +124,6 @@ class _QuizPageState extends State<QuizPage> {
                             height: 50,
                             buttonColor: Colors.white,
                             child: RaisedButton(
-                              
                               shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(18.0),
                               ),
@@ -155,61 +143,62 @@ class _QuizPageState extends State<QuizPage> {
                                           ? Colors.green
                                           : Colors.red,
                               onPressed: () {
-                                if(!_disableBtn)
-                                {
-
-                               
-                                if (widget.state.isUserCorrect(question, currentAnswer)) {
-                                  widget.state.decrementLives();
+                                if (!_disableBtn) {
+                                  if (widget.state
+                                      .isUserCorrect(question, currentAnswer)) {
+                                    widget.state.decrementLives();
+                                  }
+                                  setState(() {
+                                    _disableBtn = true;
+                                    currentAnswer = option;
+                                    cardKey.currentState.toggleCard();
+                                    _answers[_currentIndex] = option;
+                                  });
                                 }
-                                setState(() {
-                                  _disableBtn = true;
-                                  currentAnswer = option;
-                                  cardKey.currentState.toggleCard();
-                                  _answers[_currentIndex] = option;
-                                });
-                              }
-                                }
-                              ,
+                              },
                             ),
                           ),
                           SizedBox(
                             height: 10,
                           ),
-                          
                         ],
                       ),
                     ),
-                    _disableBtn ? Padding(
-                      padding: const EdgeInsets.all(58.0),
-                      child: ButtonTheme(
+                    _disableBtn
+                        ? Padding(
+                            padding: const EdgeInsets.all(58.0),
+                            child: ButtonTheme(
                               minWidth: 150,
                               height: 50,
                               buttonColor: Colors.white,
                               child: RaisedButton(
-                                
                                 shape: RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(18.0),
                                 ),
                                 child: Text(
                                   "Next",
                                   style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.white
-                                  ),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.white),
                                 ),
                                 color: Theme.of(context).primaryColor,
                                 onPressed: () {
                                   GameState savedState = widget.state;
                                   setState(() {
                                     _currentIndex++;
-                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> QuizPage(state: widget.state,)));
-                                    
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => QuizPage(
+                                                  state: widget.state,
+                                                )));
                                   });
-                                },),),
-                    ):Container(),
-                    
+                                },
+                              ),
+                            ),
+                          )
+                        : Container(),
 
                     // RadioListTile(
 
