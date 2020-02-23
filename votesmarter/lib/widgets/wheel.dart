@@ -22,7 +22,7 @@ class Luck {
 }
 
 class Wheel extends StatefulWidget {
-  final GameState state;
+  GameState state;
 
   Wheel({Key key, this.state}) : super(key: key);
 
@@ -41,11 +41,18 @@ class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
     widget.state.incrementGameRound();
     return Future.delayed(_waitingDuration)
         .then((onValue) => Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => QuizPage(
+              builder: (context) => QuizPage(
                 state: widget.state,
                 backgroundColor: _luck.widgetColor,
+                notifyParent: refresh
               ),
             )));
+  }
+  refresh(GameState state){
+    setState(() {
+      widget.state = state;
+      
+    });
   }
 
   @override

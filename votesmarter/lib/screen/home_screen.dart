@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
         onPressed: () {
           final GameState state = new GameState();
           Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => MainGame(state: state)));
+              MaterialPageRoute(builder: (context) => MainGame(state: state)));
         },
         padding: EdgeInsets.only(left: 25, right: 25, top: 10, bottom: 10),
         shape: RoundedRectangleBorder(
