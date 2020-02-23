@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:votesmarter/screen/game_results_screen.dart';
 import 'package:flutter/services.dart';
-import 'package:votesmarter/screen/home_screen.dart';
-import 'package:votesmarter/screen/test_game_screen.dart';
+import 'package:votesmarter/screen/home.dart';
 import 'package:votesmarter/screen/test_game_screen_v.dart';
 import 'package:votesmarter/theme/theme.dart';
 
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
      
       theme: appTheme,
-      home: HomeScreen(),
+      home: Home(),
     );
   }
 }
