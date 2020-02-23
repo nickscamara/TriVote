@@ -280,6 +280,9 @@ class GameState {
     }
     if (questions[this._topic] != null && questions[this._topic].length != 1) {
       questions[this._topic].remove(proposedQuestion);
+    } else {
+      // We won
+      return null;
     }
     if (this._topic == "assets/img/civics.png") {
       _numCivicsTotal++;
