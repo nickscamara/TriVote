@@ -43,6 +43,7 @@ class _MainGameState extends State<MainGame>
                   automaticallyImplyLeading: false,
                   centerTitle: true,
                   title: Text('ROUND ' + widget.state.currentGameRound.toString(),style: TextStyle(fontWeight: FontWeight.bold),),
+                  
                   elevation: 0,
                   leading:  Material(
                         color: Colors.amber,
