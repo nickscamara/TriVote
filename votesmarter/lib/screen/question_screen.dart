@@ -3,12 +3,14 @@ import 'package:votesmarter/model/question.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:votesmarter/screen/game_results_screen.dart';
 import 'package:votesmarter/state/game_state.dart';
 
 class QuizPage extends StatefulWidget {
   final GameState state;
   final Color backgroundColor;
-  QuizPage({Key key, @required this.state, this.backgroundColor})
+  final Function(GameState state) notifyParent;
+  QuizPage({Key key, @required this.state, this.backgroundColor,this.notifyParent})
       : super(key: key);
 
   @override
@@ -24,6 +26,7 @@ class _QuizPageState extends State<QuizPage> {
   bool _disableBtn = false;
   bool _correct = false;
   Question question;
+  
   @override
   void initState() {
     // TODO: implement initState
@@ -35,7 +38,21 @@ class _QuizPageState extends State<QuizPage> {
   Widget build(BuildContext context) {
     final TextStyle _questionStyle = TextStyle(
         fontSize: 30.0, fontWeight: FontWeight.w500, color: Colors.black);
-    final List<dynamic> options = question.incorrectAnswers;
+        List<dynamic> options = new List<dynamic>();
+        try
+        {
+           options = question.incorrectAnswers;
+
+        }catch(Exception){
+          
+          Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => GameResultsScreen(
+                                                  state: widget.state
+                                                )));
+          
+        }
     if (!options.contains(question.correctAnswer)) {
       options.add(question.correctAnswer);
       options.shuffle();
@@ -50,22 +67,7 @@ class _QuizPageState extends State<QuizPage> {
         backgroundColor: widget.backgroundColor,
 
         title: Text(question.categoryName.toString().toUpperCase()),
-        
-
-        actions: <Widget>[
-          Center(
-              child: GestureDetector(
-            onTap: () {
-              widget.state.decrementLives();
-              Navigator.pop(context);
-            },
-            child: Text(
-              "Pop",
-              style: TextStyle(fontSize: 20),
-            ),
-          ))
-        ],
-
+     
         elevation: 0,
       ),
       body: Stack(
@@ -137,10 +139,11 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 50.0),
+                SizedBox(height: 20.0),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     ...options.map(
                       (option) => Column(
@@ -225,15 +228,24 @@ class _QuizPageState extends State<QuizPage> {
                                 color: widget.backgroundColor,
                                 onPressed: () {
                                   GameState savedState = widget.state;
-                                  setState(() {
-                                    _currentIndex++;
+                                  try
+                                  {
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) => QuizPage(
                                                   state: widget.state,backgroundColor: widget.backgroundColor,
                                                 )));
-                                  });
+                                  }catch(Exception)
+                                  {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => GameResultsScreen(
+                                                  state: widget.state
+                                                )));
+
+                                  }
                                 },
                               ),
                             ),
@@ -258,7 +270,9 @@ class _QuizPageState extends State<QuizPage> {
                                 color: widget.backgroundColor,
                                 onPressed: () {
                                   GameState savedState = widget.state;
-                                 Navigator.pop(context);
+                                 widget.notifyParent(savedState);
+                                  widget.state.gameIsFinished() ?Navigator.push(context, MaterialPageRoute(builder: (context) => GameResultsScreen(state: widget.state)))
+                                 : Navigator.pop(context);
                                 },
                               ),
                             ),

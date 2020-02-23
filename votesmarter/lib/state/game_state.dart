@@ -282,7 +282,7 @@ class GameState {
     }
     if (questions[this._topic] != null && questions[this._topic].length != 1) {
       questions[this._topic].remove(proposedQuestion);
-    } else if (questions[this._topic].length == 1) {
+    } else if (questions[this._topic] != null && questions[this._topic].length == 1) {
       // We won
       done = true;
       return null;

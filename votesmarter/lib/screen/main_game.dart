@@ -24,14 +24,21 @@ class MainGame extends StatefulWidget {
 
 class _MainGameState extends State<MainGame>
     with SingleTickerProviderStateMixin {
+
+
+     
   @override
   Widget build(BuildContext context) {
 
-    if (widget.state.gameIsFinished()) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => GameResultsScreen(state: widget.state)));
-    }
+    // if (widget.state.gameIsFinished()) {
+    //   print("game is finished");
+    //   Navigator.push(context, MaterialPageRoute(builder: (_) => GameResultsScreen(state: widget.state)));
+    // }
+    
+  
 
-    return Scaffold(
+    return widget.state.gameIsFinished()?Navigator.push(context, MaterialPageRoute(builder: (context) => GameResultsScreen(state: widget.state))):
+     Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -76,5 +83,7 @@ class _MainGameState extends State<MainGame>
         ),
       ),
     );
+    
   }
+ 
 }
