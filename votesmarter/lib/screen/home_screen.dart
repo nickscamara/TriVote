@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
       child: Container(
           child: RaisedButton(
         onPressed: () {
-          Navigator.of(context).pushReplacement(
+          Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => MainGame()));
         },
         padding: EdgeInsets.only(left: 25, right: 25, top: 10, bottom: 10),

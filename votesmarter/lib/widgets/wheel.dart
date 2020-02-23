@@ -59,8 +59,6 @@ class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
       ],))
     ));
   }
-   
-
 
   @override
   void initState() {
