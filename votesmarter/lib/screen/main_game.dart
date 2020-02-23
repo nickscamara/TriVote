@@ -26,6 +26,11 @@ class _MainGameState extends State<MainGame>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+
+    if (widget.state.gameIsFinished()) {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => GameResultsScreen(state: widget.state)));
+    }
+
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
