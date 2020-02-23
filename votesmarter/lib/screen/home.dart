@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:votesmarter/screen/home_screen.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:votesmarter/screen/leaderboard_screen.dart';
 import 'package:votesmarter/widgets/navbar.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 class Home extends StatefulWidget {
@@ -21,9 +22,7 @@ class _HomeState extends State<Home> {
       ),
       //MainGame(),
       
-      Scaffold(
-        body: Text("daw"),
-      ),
+      LeaderBoardScreen(),
       Scaffold(
         body: Text("daw"),
       ),
@@ -36,6 +35,16 @@ class _HomeState extends State<Home> {
     setState(() {
       _selectedNavIndex = screen;
     });
+  }
+  String _getName(int index){
+    if(index == 2)
+    {
+      return "Leaderboard";
+    }else
+    {
+      return "TriVote";
+    }
+
   }
   
 
@@ -61,7 +70,7 @@ class _HomeState extends State<Home> {
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         centerTitle: true,
-        title: Text("",style: TextStyle(fontSize: 21),),
+        title: Text(_getName(_selectedNavIndex),style: TextStyle(fontSize: 21),),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
