@@ -233,8 +233,10 @@ class GameState {
   int _lives;
   get currentNumberOfLives => _lives;
 
+  bool done = false;
+
   bool gameIsFinished() {
-    return _lives == 0;
+    return _lives == 0 || done;
   }
 
   void decrementLives() {
@@ -282,6 +284,7 @@ class GameState {
       questions[this._topic].remove(proposedQuestion);
     } else {
       // We won
+      done = true;
       return null;
     }
     if (this._topic == "assets/img/civics.png") {
