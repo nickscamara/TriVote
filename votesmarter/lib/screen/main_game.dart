@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 import 'package:votesmarter/model/question.dart';
+import 'package:votesmarter/screen/game_results_screen.dart';
 import 'package:votesmarter/screen/question_screen.dart';
 import 'package:votesmarter/widgets/wheel.dart';
 
@@ -32,6 +33,12 @@ class _MainGameState extends State<MainGame>
         centerTitle: true,
         title: Text('Round ' + widget.state.currentGameRound.toString()),
         elevation: 0,
+        leading: IconButton(
+          onPressed: () => 
+          Navigator.push(context, MaterialPageRoute(builder: (_)=> GameResultsScreen(state: widget.state,)))
+          ,
+          icon: Icon(Icons.exit_to_app),
+        ),
       ),
       body: Container(
         child: Stack(
