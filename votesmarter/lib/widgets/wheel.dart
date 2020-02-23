@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'dart:ui';
+import 'dart:async';
 
 import 'package:votesmarter/model/question.dart';
+import 'package:votesmarter/screen/game_results_screen.dart';
 import 'package:votesmarter/screen/question_screen.dart';
 
 class Luck {
@@ -24,6 +26,40 @@ class Wheel extends StatefulWidget {
 }
 
 class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
+
+
+  Future<void> _waitForAnimationToFinish() {
+    return Future.delayed(Duration(milliseconds: 1500)).then((onValue) => Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => QuizPage(questions: [
+          Question(
+                            question: "What is the name of America?",
+                            incorrectAnswers: ["Pegasus", "Coconut", "Trump"],
+                            correctAnswer: "Arlinda",
+                            sourceURL: "idjadawdada",
+                            explanation: "awdadwa",
+                            type: "awdawdadawawd"),
+                        Question(
+                            question: "What is the name of America?",
+                            answers: ["yes", "no"],
+                            correctAnswer: "yes",
+                            incorrectAnswers: ["no"],
+                            sourceURL: "idjadawdada",
+                            explanation: "awdadwa",
+                            type: "awdawdadawawd"),
+                        Question(
+                            question: "What is the name of America?",
+                            answers: ["yes", "no"],
+                            correctAnswer: "yes",
+                            incorrectAnswers: ["no"],
+                            sourceURL: "idjadawdada",
+                            explanation: "awdadwa",
+                            type: "awdawdadawawd"),
+      ],))
+    ));
+  }
+   
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -82,6 +118,7 @@ class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
   }
 
   _animation() {
+    _waitForAnimationToFinish();
     if (!_ctrl.isAnimating) {
       var _random = Random().nextDouble();
       _angle = 20 + Random().nextInt(5) + _random;
