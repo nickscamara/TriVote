@@ -4,7 +4,38 @@ import '../model/question.dart';
 
 class GameState {
 
-  final Map<String, Set<Question>> questions;
+  final Map<String, Set<Question>> questions = {
+    "civics": { new Question(
+      question: "Civic Question",
+      answers: ["1", "2", "3"],
+      correctAnswer: "2",
+      sourceURL: null,
+      explanation: null,
+      incorrectAnswers: ["1", "3"],
+      type: "civics",
+      categoryName: "civics"
+    ) },
+    "policy": { new Question(
+      question: "Policy Question",
+      answers: ["1", "2", "3"],
+      correctAnswer: "1",
+      sourceURL: null,
+      explanation: null,
+      incorrectAnswers: ["2", "3"],
+      type: "policy",
+      categoryName: "policy"
+    ) },
+    "candidates": { new Question(
+      question: "candidates Question",
+      answers: ["1", "2", "3"],
+      correctAnswer: "3",
+      sourceURL: null,
+      explanation: null,
+      incorrectAnswers: ["1", "2"],
+      type: "candidates",
+      categoryName: "candidates"
+    ) }, 
+  };
   final Random _random = Random();
 
   // We need to track the current round we are on
@@ -66,7 +97,7 @@ class GameState {
       return false;
     }
   }
-  GameState({this.questions}) {
+  GameState() {
     _currentGameRound = 1;
     _lives = 5;
   }
