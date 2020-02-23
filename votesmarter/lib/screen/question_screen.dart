@@ -43,7 +43,9 @@ class _QuizPageState extends State<QuizPage> {
           actions: <Widget>[
             Center(
                 child: GestureDetector(
-                  onTap: ()=> Navigator.pop(context),
+                  onTap: (){ 
+                    widget.state.decrementLives();
+                    Navigator.pop(context);},
                                   child: Text(
               "Pop",
               style: TextStyle(fontSize: 20),
