@@ -10,7 +10,8 @@ class QuizPage extends StatefulWidget {
   final GameState state;
   final Color backgroundColor;
   final Function(GameState state) notifyParent;
-  QuizPage({Key key, @required this.state, this.backgroundColor,this.notifyParent})
+  QuizPage(
+      {Key key, @required this.state, this.backgroundColor, this.notifyParent})
       : super(key: key);
 
   @override
@@ -26,7 +27,7 @@ class _QuizPageState extends State<QuizPage> {
   bool _disableBtn = false;
   bool _correct = false;
   Question question;
-  
+
   @override
   void initState() {
     // TODO: implement initState
@@ -38,36 +39,23 @@ class _QuizPageState extends State<QuizPage> {
   Widget build(BuildContext context) {
     final TextStyle _questionStyle = TextStyle(
         fontSize: 30.0, fontWeight: FontWeight.w500, color: Colors.black);
-        List<dynamic> options = new List<dynamic>();
-        try
-        {
-           options = question.incorrectAnswers;
-
-        }catch(Exception){
-          
-          Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => GameResultsScreen(
-                                                  state: widget.state
-                                                )));
-          
-        }
-    if (!options.contains(question.correctAnswer)) {
+    List<dynamic> options = new List<dynamic>();
+    if (!widget.state.gameIsFinished()) {
+      options = question.incorrectAnswers;
+    }
+    if (question.correctAnswer != null && !options.contains(question.correctAnswer)) {
       options.add(question.correctAnswer);
       options.shuffle();
     }
 
     return Scaffold(
-       resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: false,
       key: _key,
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
         backgroundColor: widget.backgroundColor,
-
         title: Text(question.categoryName.toString().toUpperCase()),
-     
         elevation: 0,
       ),
       body: Stack(
@@ -119,21 +107,23 @@ class _QuizPageState extends State<QuizPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          !_correct ? Expanded(
-                            child: Text(
-                             question.explanation,
-                              softWrap: true,
-                              style: _questionStyle,
-                              textAlign: TextAlign.center,
-                            ),
-                          ) : Expanded(
-                            child: Text(
-                             question.funFact,
-                              softWrap: true,
-                              style: _questionStyle,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
+                          !_correct
+                              ? Expanded(
+                                  child: Text(
+                                    question.explanation,
+                                    softWrap: true,
+                                    style: _questionStyle,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              : Expanded(
+                                  child: Text(
+                                    question.funFact,
+                                    softWrap: true,
+                                    style: _questionStyle,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
                         ],
                       ),
                     ),
@@ -177,22 +167,21 @@ class _QuizPageState extends State<QuizPage> {
                                   print("answer: " + option.toString());
                                   if (!widget.state
                                       .isUserCorrect(question, option)) {
-                                        print("not correct");
+                                    print("not correct");
                                     setState(() {
-                                     
                                       currentAnswer = option;
                                       cardKey.currentState.toggleCard();
                                       _answers[_currentIndex] = option;
                                       _correct = false;
-                                       _disableBtn = true;
+                                      _disableBtn = true;
                                     });
-                                  }else{
+                                  } else {
                                     print("correct");
                                     setState(() {
                                       currentAnswer = option;
-                                    _correct = true;
-                                    
-                                    cardKey.currentState.toggleCard();
+                                      _correct = true;
+
+                                      cardKey.currentState.toggleCard();
                                       _answers[_currentIndex] = option;
                                       _disableBtn = true;
                                     });
@@ -209,7 +198,8 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                     (_disableBtn && _correct)
                         ? Padding(
-                            padding: const EdgeInsets.only(left: 100,right: 100),
+                            padding:
+                                const EdgeInsets.only(left: 100, right: 100),
                             child: ButtonTheme(
                               minWidth: 10,
                               height: 50,
@@ -228,55 +218,63 @@ class _QuizPageState extends State<QuizPage> {
                                 color: widget.backgroundColor,
                                 onPressed: () {
                                   GameState savedState = widget.state;
-                                  try
-                                  {
+                                  try {
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) => QuizPage(
-                                                  state: widget.state,backgroundColor: widget.backgroundColor,
+                                                  state: widget.state,
+                                                  backgroundColor:
+                                                      widget.backgroundColor,
                                                 )));
-                                  }catch(Exception)
-                                  {
+                                  } catch (Exception) {
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) => GameResultsScreen(
-                                                  state: widget.state
-                                                )));
-
+                                                state: widget.state)));
                                   }
                                 },
                               ),
                             ),
                           )
-                        : (!_correct && _disableBtn) ? Padding(
-                            padding: const EdgeInsets.only(left:100, right: 100),
-                            child: ButtonTheme(
-                              minWidth: 10,
-                              height: 50,
-                              buttonColor: Colors.white,
-                              child: RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(18.0),
+                        : (!_correct && _disableBtn)
+                            ? Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 100, right: 100),
+                                child: ButtonTheme(
+                                  minWidth: 10,
+                                  height: 50,
+                                  buttonColor: Colors.white,
+                                  child: RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(18.0),
+                                    ),
+                                    child: Text(
+                                      "Spin Again",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w300,
+                                          color: Colors.white),
+                                    ),
+                                    color: widget.backgroundColor,
+                                    onPressed: () {
+                                      GameState savedState = widget.state;
+                                      //widget.notifyParent(savedState);
+                                      widget.state.gameIsFinished()
+                                          ? Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      GameResultsScreen(
+                                                          state: widget.state)))
+                                          : Navigator.pop(context);
+                                    },
+                                  ),
                                 ),
-                                child: Text(
-                                  "Spin Again",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w300,
-                                      color: Colors.white),
-                                ),
-                                color: widget.backgroundColor,
-                                onPressed: () {
-                                  GameState savedState = widget.state;
-                                 widget.notifyParent(savedState);
-                                  widget.state.gameIsFinished() ?Navigator.push(context, MaterialPageRoute(builder: (context) => GameResultsScreen(state: widget.state)))
-                                 : Navigator.pop(context);
-                                },
-                              ),
-                            ),
-                          ):Container(),
+                              )
+                            : Container(),
 
                     // RadioListTile(
 

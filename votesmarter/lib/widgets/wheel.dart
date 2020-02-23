@@ -22,6 +22,7 @@ class Luck {
 }
 
 class Wheel extends StatefulWidget {
+
   GameState state;
 
   Wheel({Key key, this.state}) : super(key: key);
@@ -51,7 +52,6 @@ class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
   refresh(GameState state){
     setState(() {
       widget.state = state;
-      
     });
   }
 

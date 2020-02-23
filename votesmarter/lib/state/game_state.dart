@@ -318,13 +318,13 @@ class GameState {
     done = false;
     _topic = "";
     _currentGameRound = 1;
-    _lives = 5;
-    _numCandidatesCorrect = 0;
-    _numCandidatesTotal = 0;
-    _numCivicsCorrect = 0;
-    _numCivicsTotal = 0;
-    _numPolicyCorrect = 0;
-    _numPolicyTotal = 0;
+    _lives = 3;
+    _numCandidatesCorrect = 1;
+    _numCandidatesTotal = 1;
+    _numCivicsCorrect = 1;
+    _numCivicsTotal = 1;
+    _numPolicyCorrect = 1;
+    _numPolicyTotal = 1;
   }
   GameState.fromState(GameState state) {
     _topic = state._topic;

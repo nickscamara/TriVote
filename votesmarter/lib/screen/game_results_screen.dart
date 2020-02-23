@@ -3,13 +3,11 @@ import 'package:spider_chart/spider_chart.dart';
 import '../state/game_state.dart';
 
 class GameResultsScreen extends StatefulWidget {
-
   final GameState state;
   GameResultsScreen({this.state});
 
   final ticks = [1, 5, 10];
   final features = ["Civics", "Policy", "Candidates"];
-
 
   @override
   _GameResultsScreenState createState() => _GameResultsScreenState();
@@ -25,8 +23,10 @@ class _GameResultsScreenState extends State<GameResultsScreen> {
     ];
     double score = widget.state.calculateTotalScore;
     String informed;
-    if (score > 450) informed = " informed.";
-    else informed = " not informed.";
+    if (score > 150)
+      informed = " informed.";
+    else
+      informed = " not informed.";
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(10),
@@ -52,7 +52,7 @@ class _GameResultsScreenState extends State<GameResultsScreen> {
           ),
           Center(
             child: Text(
-              'Your final score was ' + score.toString(),
+              'Your final score was ' + score.round().toString(),
               style: TextStyle(
                 fontSize: 20,
               ),
@@ -75,13 +75,17 @@ class _GameResultsScreenState extends State<GameResultsScreen> {
           SizedBox(height: 50),
           Center(
             child: Text(
-              'You are ' + informed,
+              'You are' + informed,
               style: TextStyle(
                 fontSize: 20,
               ),
             ),
           ),
           SizedBox(height: 15),
+          SizedBox(height: 15),
+          Center(
+            child: Text('You are 15% less informed than the average American'),
+          ),
           Center(
             child: Center(
               child: Row(
@@ -97,20 +101,6 @@ class _GameResultsScreenState extends State<GameResultsScreen> {
                   )
                 ],
               ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: RaisedButton(
-              onPressed: () {
-                // RETURN HOME
-              },
-              child: Text('Finish'),
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              color: Colors.orange,
             ),
           ),
         ],
