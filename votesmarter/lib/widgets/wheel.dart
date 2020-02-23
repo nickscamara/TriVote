@@ -38,31 +38,7 @@ class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
     return Future.delayed(_waitingDuration)
         .then((onValue) => Navigator.of(context).push(MaterialPageRoute(
               builder: (_) => QuizPage(
-                questions: [
-                  Question(
-                      question: "What is the name of America?",
-                      incorrectAnswers: ["Pegasus", "Coconut", "Trump"],
-                      correctAnswer: "Arlinda",
-                      sourceURL: "idjadawdada",
-                      explanation: "awdadwa",
-                      type: "awdawdadawawd"),
-                  Question(
-                      question: "What is the name of America?",
-                      answers: ["yes", "no"],
-                      correctAnswer: "yes",
-                      incorrectAnswers: ["no"],
-                      sourceURL: "idjadawdada",
-                      explanation: "awdadwa",
-                      type: "awdawdadawawd"),
-                  Question(
-                      question: "What is the name of America?",
-                      answers: ["yes", "no"],
-                      correctAnswer: "yes",
-                      incorrectAnswers: ["no"],
-                      sourceURL: "idjadawdada",
-                      explanation: "awdadwa",
-                      type: "awdawdadawawd"),
-                ],
+                state: widget.state,
               ),
             )));
   }
@@ -79,10 +55,10 @@ class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
   AnimationController _ctrl;
   Animation _ani;
   List<Luck> _items = [
-    Luck("ballot", Color(0xffff5151)),
+    Luck("civics", Color(0xffff5151)),
     Luck("crown", Color(0xFF9818d6)),
-    Luck("problem", Color(0xFFffa41b)),
-    Luck("user", Color(0xff04E762)),
+    Luck("policy", Color(0xFFffa41b)),
+    Luck("candidates", Color(0xff04E762)),
   ];
   @override
   Widget build(BuildContext context) {
@@ -143,6 +119,7 @@ class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
   _buildResult(_value) {
     var _index = _calIndex(_value * _angle + _current);
     String _asset = _items[_index].asset;
+    widget.state.setTopic(_asset);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Align(

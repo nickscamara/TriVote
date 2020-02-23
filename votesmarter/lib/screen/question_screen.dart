@@ -3,10 +3,11 @@ import 'package:votesmarter/model/question.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:votesmarter/state/game_state.dart';
 
 class QuizPage extends StatefulWidget {
-  final List<Question> questions;
-  const QuizPage({Key key, @required this.questions}) : super(key: key);
+  final GameState state;
+  const QuizPage({Key key, @required this.state}) : super(key: key);
 
   @override
   _QuizPageState createState() => _QuizPageState();
@@ -23,16 +24,14 @@ class _QuizPageState extends State<QuizPage> {
   Widget build(BuildContext context) {
     final TextStyle _questionStyle = TextStyle(
         fontSize: 30.0, fontWeight: FontWeight.w500, color: Colors.black);
-    Question question = widget.questions[_currentIndex];
+    Question question = widget.state.getQuestionByTopic();
     final List<dynamic> options = question.incorrectAnswers;
     if (!options.contains(question.correctAnswer)) {
       options.add(question.correctAnswer);
       options.shuffle();
     }
 
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
+    return Scaffold(
         key: _key,
         appBar: AppBar(
           centerTitle: true,
@@ -43,10 +42,13 @@ class _QuizPageState extends State<QuizPage> {
           ),
           actions: <Widget>[
             Center(
-                child: Text(
-              "30'",
+                child: GestureDetector(
+                  onTap: ()=> Navigator.pop(context),
+                                  child: Text(
+              "Pop",
               style: TextStyle(fontSize: 20),
-            ))
+            ),
+                ))
           ],
           elevation: 0,
         ),
@@ -82,7 +84,7 @@ class _QuizPageState extends State<QuizPage> {
                             Expanded(
                               child: Text(
                                 HtmlUnescape().convert(
-                                    widget.questions[_currentIndex].question),
+                                   question.getQuestion()),
                                 softWrap: true,
                                 style: _questionStyle,
                                 textAlign: TextAlign.center,
@@ -144,8 +146,7 @@ class _QuizPageState extends State<QuizPage> {
                                     : option != currentAnswer
                                         ? null
                                         : currentAnswer ==
-                                                widget.questions[_currentIndex]
-                                                    .correctAnswer
+                                                question.getCorrectAnswer()
                                             ? Colors.green
                                             : Colors.red,
                                 onPressed: () {
@@ -177,25 +178,13 @@ class _QuizPageState extends State<QuizPage> {
                       // )),
                     ],
                   ),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.bottomCenter,
-                      child: RaisedButton(
-                        child: Text(
-                            _currentIndex == (widget.questions.length - 1)
-                                ? "Submit"
-                                : "Next"),
-                        onPressed: _nextSubmit,
-                      ),
-                    ),
-                  )
+                  
                 ],
               ),
             )
           ],
         ),
-      ),
-    );
+      );
   }
 
   void _nextSubmit() {
@@ -205,15 +194,15 @@ class _QuizPageState extends State<QuizPage> {
       ));
       return;
     }
-    if (_currentIndex < (widget.questions.length - 1)) {
-      setState(() {
-        _currentIndex++;
-      });
-    } else {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => null));
-    }
-  }
+  //   if (_currentIndex < (widget.questions.length - 1)) {
+  //     setState(() {
+  //       _currentIndex++;
+  //     });
+  //   } else {
+  //     Navigator.of(context)
+  //         .pushReplacement(MaterialPageRoute(builder: (_) => null));
+  //   }
+  // }
 
   Future<bool> _onWillPop() async {
     return showDialog<bool>(
@@ -240,35 +229,7 @@ class _QuizPageState extends State<QuizPage> {
           );
         });
   }
+  }
 }
 
-class StackOfCards extends StatelessWidget {
-  final int num;
-  final Widget child;
-  final double offset;
 
-  const StackOfCards(
-      {Key key, int num = 1, @required this.child, this.offset = 10.0})
-      : this.num = num > 0 ? num : 1,
-        assert(offset != null),
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) => Stack(
-        children: List<Widget>.generate(
-            num - 1,
-            (val) => Positioned(
-                bottom: val * offset,
-                left: val * offset,
-                top: (num - val - 1) * offset,
-                right: (num - val - 1) * offset,
-                child: Card(child: Container()))).toList()
-          ..add(
-            Padding(
-              child: Card(child: child),
-              padding: EdgeInsets.only(
-                  bottom: (num - 1) * offset, left: (num - 1) * offset),
-            ),
-          ),
-      );
-}

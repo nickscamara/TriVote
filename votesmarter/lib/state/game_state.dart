@@ -4,8 +4,10 @@ import '../model/question.dart';
 
 class GameState {
 
-  final Map<String, Set<Question>> questions = {
-    "civics": { new Question(
+  String _topic;
+
+  final Map<String, List<Question>> questions = {
+    "assets/img/civics.png": [new Question(
       question: "Civic Question",
       answers: ["1", "2", "3"],
       correctAnswer: "2",
@@ -13,9 +15,9 @@ class GameState {
       explanation: null,
       incorrectAnswers: ["1", "3"],
       type: "civics",
-      categoryName: "civics"
-    ) },
-    "policy": { new Question(
+      categoryName: "civics",)]
+    ,
+    "assets/img/policy.png": [ new Question(
       question: "Policy Question",
       answers: ["1", "2", "3"],
       correctAnswer: "1",
@@ -24,8 +26,8 @@ class GameState {
       incorrectAnswers: ["2", "3"],
       type: "policy",
       categoryName: "policy"
-    ) },
-    "candidates": { new Question(
+    ) ],
+    "assets/img/candidates.png": [ new Question(
       question: "candidates Question",
       answers: ["1", "2", "3"],
       correctAnswer: "3",
@@ -34,7 +36,7 @@ class GameState {
       incorrectAnswers: ["1", "2"],
       type: "candidates",
       categoryName: "candidates"
-    ) }, 
+    ) ], 
   };
   final Random _random = Random();
 
@@ -47,6 +49,10 @@ class GameState {
 
   void decrementLives() {
     _lives--;
+  }
+  void setTopic(String topic)
+  {
+    this._topic = topic;
   }
 
   int _numCivicsCorrect, _numCivicsTotal;
@@ -64,19 +70,23 @@ class GameState {
     _currentGameRound++;
   }
 
-  Question getQuestionByTopic(String topic) {
+  Question getQuestionByTopic() {
     Question proposedQuestion;
-    if (topic == "crown") {
+    if (this._topic == "assets/img/crown.png") {
       String randomCategory = ((questions.keys).toList())[_random.nextInt(3)];
+      print(randomCategory);
       proposedQuestion = questions[randomCategory].elementAt(_random.nextInt(questions[randomCategory].length));
     } else
-      proposedQuestion = questions[topic].elementAt(_random.nextInt(questions[topic].length));
-    questions[topic].remove(proposedQuestion);
-    if (topic == "civics") {
+    {
+      print(this._topic + " - " + " This rand index: " +  (_random.nextInt(questions[this._topic].length).toString()));
+      proposedQuestion = questions[this._topic].elementAt((_random.nextInt(questions[this._topic].length)));
+    }
+    //questions[this._topic].remove(proposedQuestion);
+    if (this._topic == "assets/img/civics.png") {
         _numCivicsTotal++;
-    } else if (topic == "policy") {
+    } else if (this._topic == "assets/img/policy.png") {
       _numPolicyTotal++;
-    } else if (topic == "candidates") {
+    } else if (this._topic == "assets/img/candidates.png") {
       _numCandidatesTotal++;
     }
     return proposedQuestion;
@@ -99,8 +109,16 @@ class GameState {
     }
   }
   GameState() {
+    _topic = "";
     _currentGameRound = 1;
     _lives = 5;
+    _numCandidatesCorrect = 0;
+    _numCandidatesTotal = 0;
+    _numCivicsCorrect = 0;
+    _numCivicsTotal = 0;
+    _numPolicyCorrect = 0;
+    _numPolicyTotal = 0;
+    
   }
 
 
