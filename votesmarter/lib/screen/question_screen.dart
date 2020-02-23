@@ -6,6 +6,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:votesmarter/state/game_state.dart';
 
 class QuizPage extends StatefulWidget {
+
   GameState state;
   QuizPage({Key key, @required this.state}) : super(key: key);
 
@@ -16,15 +17,22 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   int _currentIndex = 0;
   String currentAnswer;
+  Question question;
   final Map<int, dynamic> _answers = {};
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
   bool _disableBtn = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    question =  widget.state.getQuestionByTopic();
+  }  
   @override
   Widget build(BuildContext context) {
     final TextStyle _questionStyle = TextStyle(
         fontSize: 30.0, fontWeight: FontWeight.w500, color: Colors.black);
-    Question question = widget.state.getQuestionByTopic();
     final List<dynamic> options = question.incorrectAnswers;
     if (!options.contains(question.correctAnswer)) {
       options.add(question.correctAnswer);
