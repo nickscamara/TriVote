@@ -20,6 +20,7 @@ class _MainGameState extends State<MainGame>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Container(
               child: Stack(
           children: <Widget>[
@@ -35,46 +36,7 @@ class _MainGameState extends State<MainGame>
               ),
               child: Wheel(),
             ),
-            Positioned(
-              top: 200,
-                          child: RawMaterialButton(
-                child: Text("Ansdwdawer"),
-                onPressed: () {
-                  print("her");
-                  Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return new QuizPage(
-                          questions: [
-                            Question(
-                                question: "What is the name of America?",
-                                incorrectAnswers: ["Pegasus", "Coconut", "Trump"],
-                                correctAnswer: "Arlinda",
-                                sourceURL: "idjadawdada",
-                                explanation: "awdadwa",
-                                type: "awdawdadawawd"),
-                            Question(
-                                question: "What is the name of America?",
-                                answers: ["yes", "no"],
-                                correctAnswer: "yes",
-                                incorrectAnswers: ["no"],
-                                sourceURL: "idjadawdada",
-                                explanation: "awdadwa",
-                                type: "awdawdadawawd"),
-                            Question(
-                                question: "What is the name of America?",
-                                answers: ["yes", "no"],
-                                correctAnswer: "yes",
-                                incorrectAnswers: ["no"],
-                                sourceURL: "idjadawdada",
-                                explanation: "awdadwa",
-                                type: "awdawdadawawd"),
-                          ],
-                        );
-                      },
-                      fullscreenDialog: true));
-                },
-              ),
-            )
+            
           ],
         ),
       ),

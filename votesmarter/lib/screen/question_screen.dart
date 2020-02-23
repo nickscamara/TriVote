@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:votesmarter/model/question.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:flip_card/flip_card.dart';
+
 class QuizPage extends StatefulWidget {
   final List<Question> questions;
-
   const QuizPage({Key key, @required this.questions}) : super(key: key);
 
   @override
@@ -12,32 +13,41 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  final TextStyle _questionStyle = TextStyle(
-    fontSize: 18.0,
-    fontWeight: FontWeight.w500,
-    color: Colors.white
-  );
-
   int _currentIndex = 0;
-  final Map<int,dynamic> _answers = {};
+  String currentAnswer;
+  final Map<int, dynamic> _answers = {};
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-
+  GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
+    final TextStyle _questionStyle = TextStyle(
+        fontSize: 30.0, fontWeight: FontWeight.w500, color: Colors.black);
     Question question = widget.questions[_currentIndex];
     final List<dynamic> options = question.incorrectAnswers;
-    if(!options.contains(question.correctAnswer)) {
+    if (!options.contains(question.correctAnswer)) {
       options.add(question.correctAnswer);
       options.shuffle();
     }
-    
+
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
         key: _key,
         appBar: AppBar(
-          title: Text("Question"),
+          centerTitle: true,
+          leading: Icon(Icons.question_answer),
+          title: Text(
+            "Civics Question",
+            textAlign: TextAlign.center,
+          ),
+          actions: <Widget>[
+            Center(
+                child: Text(
+              "30'",
+              style: TextStyle(fontSize: 20),
+            ))
+          ],
           elevation: 0,
         ),
         body: Stack(
@@ -45,54 +55,136 @@ class _QuizPageState extends State<QuizPage> {
             ClipPath(
               clipper: WaveClipperTwo(),
               child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor
-                ),
-                height: 200,
+                decoration:
+                    BoxDecoration(color: Theme.of(context).primaryColor),
+                height: 380,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      CircleAvatar(
-                        backgroundColor: Colors.white70,
-                        child: Text("${_currentIndex+1}"),
+                  FlipCard(
+                    direction: FlipDirection.VERTICAL,
+                    key: cardKey,
+                    flipOnTouch: false,
+                    front: Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25))),
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 100.0, bottom: 100.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                HtmlUnescape().convert(
+                                    widget.questions[_currentIndex].question),
+                                softWrap: true,
+                                style: _questionStyle,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBox(width: 16.0),
-                      Expanded(
-                        child: Text(HtmlUnescape().convert(widget.questions[_currentIndex].question),
-                          softWrap: true,
-                          style: _questionStyle,),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(height: 20.0),
-                  Card(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        ...options.map((option)=>RadioListTile(
-                          title: Text(HtmlUnescape().convert("$option")),
-                          groupValue: _answers[_currentIndex],
-                          value: option,
-                          onChanged: (value){
-                            setState(() {
-                              _answers[_currentIndex] = option;
-                            });
-                          },
-                        )),
-                      ],
                     ),
+                    back: Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25))),
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 100.0, bottom: 100.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Explanation hehe",
+                                softWrap: true,
+                                style: _questionStyle,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 100.0),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      ...options.map(
+                        (option) => Column(
+                          children: <Widget>[
+                            ButtonTheme(
+                              minWidth: 350,
+                              height: 50,
+                              buttonColor: Colors.white,
+                              child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(18.0),
+                                ),
+                                child: Text(
+                                  HtmlUnescape().convert("$option"),
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                                color: currentAnswer == null
+                                    ? null
+                                    : option != currentAnswer
+                                        ? null
+                                        : currentAnswer ==
+                                                widget.questions[_currentIndex]
+                                                    .correctAnswer
+                                            ? Colors.green
+                                            : Colors.red,
+                                onPressed: () {
+                                  setState(() {
+                                    currentAnswer = option;
+                                    cardKey.currentState.toggleCard();
+                                    _answers[_currentIndex] = option;
+                                  });
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            )
+                          ],
+                        ),
+                      ),
+                      // RadioListTile(
+
+                      //   title: Text(HtmlUnescape().convert("$option")),
+                      //   groupValue: _answers[_currentIndex],
+                      //   value: option,
+
+                      //   onChanged: (value){
+                      //     setState(() {
+                      //       _answers[_currentIndex] = option;
+                      //     });
+                      //   },
+                      // )),
+                    ],
                   ),
                   Expanded(
                     child: Container(
                       alignment: Alignment.bottomCenter,
                       child: RaisedButton(
-                        child: Text( _currentIndex == (widget.questions.length - 1) ? "Submit" : "Next"),
+                        child: Text(
+                            _currentIndex == (widget.questions.length - 1)
+                                ? "Submit"
+                                : "Next"),
                         onPressed: _nextSubmit,
                       ),
                     ),
@@ -107,46 +199,76 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void _nextSubmit() {
-    if(_answers[_currentIndex] == null) {
+    if (_answers[_currentIndex] == null) {
       _key.currentState.showSnackBar(SnackBar(
         content: Text("You must select an answer to continue."),
       ));
       return;
     }
-    if(_currentIndex < (widget.questions.length - 1)){
+    if (_currentIndex < (widget.questions.length - 1)) {
       setState(() {
-          _currentIndex++;
+        _currentIndex++;
       });
     } else {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => null
-      ));
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (_) => null));
     }
   }
 
   Future<bool> _onWillPop() async {
     return showDialog<bool>(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          content: Text("Are you sure you want to quit the quiz? All your progress will be lost."),
-          title: Text("Warning!"),
-          actions: <Widget>[
-            FlatButton(
-              child: Text("Yes"),
-              onPressed: (){
-                Navigator.pop(context,true);
-              },
-            ),
-            FlatButton(
-              child: Text("No"),
-              onPressed: (){
-                Navigator.pop(context,false);
-              },
-            ),
-          ],
-        );
-      }
-    );
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            content: Text(
+                "Are you sure you want to quit the quiz? All your progress will be lost."),
+            title: Text("Warning!"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Yes"),
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
+              ),
+              FlatButton(
+                child: Text("No"),
+                onPressed: () {
+                  Navigator.pop(context, false);
+                },
+              ),
+            ],
+          );
+        });
   }
+}
+
+class StackOfCards extends StatelessWidget {
+  final int num;
+  final Widget child;
+  final double offset;
+
+  const StackOfCards(
+      {Key key, int num = 1, @required this.child, this.offset = 10.0})
+      : this.num = num > 0 ? num : 1,
+        assert(offset != null),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) => Stack(
+        children: List<Widget>.generate(
+            num - 1,
+            (val) => Positioned(
+                bottom: val * offset,
+                left: val * offset,
+                top: (num - val - 1) * offset,
+                right: (num - val - 1) * offset,
+                child: Card(child: Container()))).toList()
+          ..add(
+            Padding(
+              child: Card(child: child),
+              padding: EdgeInsets.only(
+                  bottom: (num - 1) * offset, left: (num - 1) * offset),
+            ),
+          ),
+      );
 }

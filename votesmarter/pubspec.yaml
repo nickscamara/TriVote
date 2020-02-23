@@ -32,6 +32,8 @@ dependencies:
   html_unescape: ^1.0.1+2
   auto_size_text: ^2.0.0+2
   spider_chart: ^0.1.5
+  flip_card: ^0.4.4
+  outline_material_icons: ^0.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
