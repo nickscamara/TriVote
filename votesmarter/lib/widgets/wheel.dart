@@ -205,7 +205,6 @@ class _BoardViewState extends State<BoardView> {
 
   _buildImage(Luck luck) {
     var _rotate = _rotote(widget.items.indexOf(luck));
-    print("Hello World");
     return Transform.rotate(
       angle: _rotate,
       child: Container(
