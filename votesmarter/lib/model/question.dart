@@ -7,6 +7,7 @@ class Question {
   String categoryName;
   String explanation;
   String type;
+  String funFact;
   Question({
     this.question,
     this.answers,
@@ -16,6 +17,7 @@ class Question {
     this.incorrectAnswers,
     this.type,
     this.categoryName,
+    this.funFact
   });
   String getQuestion() {
     return this.question;
@@ -37,5 +39,4 @@ class Question {
     return this.explanation;
   }
 
-  
 }
