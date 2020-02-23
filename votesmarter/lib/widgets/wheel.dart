@@ -26,39 +26,37 @@ class Wheel extends StatefulWidget {
 }
 
 class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
-
-
   Future<void> _waitForAnimationToFinish() {
-    return Future.delayed(Duration(milliseconds: 1500)).then((onValue) => Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => QuizPage(questions: [
-          Question(
-                            question: "What is the name of America?",
-                            incorrectAnswers: ["Pegasus", "Coconut", "Trump"],
-                            correctAnswer: "Arlinda",
-                            sourceURL: "idjadawdada",
-                            explanation: "awdadwa",
-                            type: "awdawdadawawd"),
-                        Question(
-                            question: "What is the name of America?",
-                            answers: ["yes", "no"],
-                            correctAnswer: "yes",
-                            incorrectAnswers: ["no"],
-                            sourceURL: "idjadawdada",
-                            explanation: "awdadwa",
-                            type: "awdawdadawawd"),
-                        Question(
-                            question: "What is the name of America?",
-                            answers: ["yes", "no"],
-                            correctAnswer: "yes",
-                            incorrectAnswers: ["no"],
-                            sourceURL: "idjadawdada",
-                            explanation: "awdadwa",
-                            type: "awdawdadawawd"),
-      ],))
-    ));
+    return Future.delayed(Duration(milliseconds: 1500))
+        .then((onValue) => Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => QuizPage(
+                  questions: [
+                    Question(
+                        question: "What is the name of America?",
+                        incorrectAnswers: ["Pegasus", "Coconut", "Trump"],
+                        correctAnswer: "Arlinda",
+                        sourceURL: "idjadawdada",
+                        explanation: "awdadwa",
+                        type: "awdawdadawawd"),
+                    Question(
+                        question: "What is the name of America?",
+                        answers: ["yes", "no"],
+                        correctAnswer: "yes",
+                        incorrectAnswers: ["no"],
+                        sourceURL: "idjadawdada",
+                        explanation: "awdadwa",
+                        type: "awdawdadawawd"),
+                    Question(
+                        question: "What is the name of America?",
+                        answers: ["yes", "no"],
+                        correctAnswer: "yes",
+                        incorrectAnswers: ["no"],
+                        sourceURL: "idjadawdada",
+                        explanation: "awdadwa",
+                        type: "awdawdadawawd"),
+                  ],
+                ))));
   }
-   
-
 
   @override
   void initState() {
