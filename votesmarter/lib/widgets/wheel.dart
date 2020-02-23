@@ -8,6 +8,7 @@ import 'dart:async';
 import 'package:votesmarter/model/question.dart';
 import 'package:votesmarter/screen/game_results_screen.dart';
 import 'package:votesmarter/screen/question_screen.dart';
+import 'package:votesmarter/state/game_state.dart';
 
 class Luck {
   final String image;
@@ -19,7 +20,9 @@ class Luck {
 }
 
 class Wheel extends StatefulWidget {
-  Wheel({Key key}) : super(key: key);
+  final GameState state;
+
+  Wheel({Key key, this.state}) : super(key: key);
 
   @override
   _WheelState createState() => _WheelState();
@@ -31,38 +34,41 @@ class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
   final Duration _waitingDuration = Duration(milliseconds: 2000);
 
   Future<void> _waitForAnimationToFinish() {
-    return Future.delayed(_waitingDuration).then((onValue) => Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => QuizPage(questions: [
-          Question(
-                            question: "What is the name of America?",
-                            incorrectAnswers: ["Pegasus", "Coconut", "Trump"],
-                            correctAnswer: "Arlinda",
-                            sourceURL: "idjadawdada",
-                            explanation: "awdadwa",
-                            type: "awdawdadawawd"),
-                        Question(
-                            question: "What is the name of America?",
-                            answers: ["yes", "no"],
-                            correctAnswer: "yes",
-                            incorrectAnswers: ["no"],
-                            sourceURL: "idjadawdada",
-                            explanation: "awdadwa",
-                            type: "awdawdadawawd"),
-                        Question(
-                            question: "What is the name of America?",
-                            answers: ["yes", "no"],
-                            correctAnswer: "yes",
-                            incorrectAnswers: ["no"],
-                            sourceURL: "idjadawdada",
-                            explanation: "awdadwa",
-                            type: "awdawdadawawd"),
-      ],))
-    ));
+    widget.state.incrementGameRound();
+    return Future.delayed(_waitingDuration)
+        .then((onValue) => Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => QuizPage(
+                questions: [
+                  Question(
+                      question: "What is the name of America?",
+                      incorrectAnswers: ["Pegasus", "Coconut", "Trump"],
+                      correctAnswer: "Arlinda",
+                      sourceURL: "idjadawdada",
+                      explanation: "awdadwa",
+                      type: "awdawdadawawd"),
+                  Question(
+                      question: "What is the name of America?",
+                      answers: ["yes", "no"],
+                      correctAnswer: "yes",
+                      incorrectAnswers: ["no"],
+                      sourceURL: "idjadawdada",
+                      explanation: "awdadwa",
+                      type: "awdawdadawawd"),
+                  Question(
+                      question: "What is the name of America?",
+                      answers: ["yes", "no"],
+                      correctAnswer: "yes",
+                      incorrectAnswers: ["no"],
+                      sourceURL: "idjadawdada",
+                      explanation: "awdadwa",
+                      type: "awdawdadawawd"),
+                ],
+              ),
+            )));
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _ctrl = AnimationController(vsync: this, duration: _animationDuration);
     _ani = CurvedAnimation(parent: _ctrl, curve: Curves.fastLinearToSlowEaseIn);
@@ -222,6 +228,7 @@ class _BoardViewState extends State<BoardView> {
 
   _buildImage(Luck luck) {
     var _rotate = _rotote(widget.items.indexOf(luck));
+    print("Hello World");
     return Transform.rotate(
       angle: _rotate,
       child: Container(

@@ -8,7 +8,13 @@ import 'package:votesmarter/model/question.dart';
 import 'package:votesmarter/screen/question_screen.dart';
 import 'package:votesmarter/widgets/wheel.dart';
 
+import 'package:votesmarter/state/game_state.dart';
+
 class MainGame extends StatefulWidget {
+  final GameState state;
+
+  MainGame({this.state});
+
   @override
   State<StatefulWidget> createState() {
     return _MainGameState();
@@ -20,8 +26,14 @@ class _MainGameState extends State<MainGame>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: Text('Round ' + widget.state.currentGameRound.toString()),
+        elevation: 0,
+      ),
       body: Container(
-              child: Stack(
+        child: Stack(
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
@@ -33,11 +45,11 @@ class _MainGameState extends State<MainGame>
                   ],
                 ),
               ),
-              child: Wheel(),
+              child: Wheel(state: widget.state),
             ),
             Positioned(
               top: 200,
-                          child: RawMaterialButton(
+              child: RawMaterialButton(
                 child: Text("Ansdwdawer"),
                 onPressed: () {
                   print("her");
@@ -47,7 +59,11 @@ class _MainGameState extends State<MainGame>
                           questions: [
                             Question(
                                 question: "What is the name of America?",
-                                incorrectAnswers: ["Pegasus", "Coconut", "Trump"],
+                                incorrectAnswers: [
+                                  "Pegasus",
+                                  "Coconut",
+                                  "Trump"
+                                ],
                                 correctAnswer: "Arlinda",
                                 sourceURL: "idjadawdada",
                                 explanation: "awdadwa",
