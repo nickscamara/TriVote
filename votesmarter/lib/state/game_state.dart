@@ -136,4 +136,16 @@ class GameState {
     _numPolicyCorrect = 0;
     _numPolicyTotal = 0;
   }
+  GameState.fromState(GameState state) {
+    
+    _topic = state._topic;
+    _currentGameRound = state._currentGameRound;
+    _lives = state._lives;
+    _numCandidatesCorrect = state._numCandidatesCorrect;
+    _numCandidatesTotal = state._numCandidatesTotal;
+    _numCivicsCorrect = state._numCivicsCorrect;
+    _numCivicsTotal = state._numCivicsTotal;
+    _numPolicyCorrect = state._numPolicyCorrect;
+    _numPolicyTotal = state._numPolicyTotal;
+  }
 }
