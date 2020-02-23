@@ -22,6 +22,7 @@ class _QuizPageState extends State<QuizPage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
   bool _disableBtn = false;
+  bool _correct = false;
   Question question;
   @override
   void initState() {
@@ -46,7 +47,23 @@ class _QuizPageState extends State<QuizPage> {
         centerTitle: true,
         automaticallyImplyLeading: false,
         backgroundColor: widget.backgroundColor,
+<<<<<<< HEAD
         actions: <Widget>[],
+=======
+        actions: <Widget>[
+          Center(
+              child: GestureDetector(
+            onTap: () {
+              widget.state.decrementLives();
+              Navigator.pop(context);
+            },
+            child: Text(
+              "Pop",
+              style: TextStyle(fontSize: 20),
+            ),
+          ))
+        ],
+>>>>>>> df49785aa9fa2c25053ac53eb7858da44f7b940a
         elevation: 0,
       ),
       body: Stack(
@@ -144,6 +161,7 @@ class _QuizPageState extends State<QuizPage> {
                                           : Colors.red,
                               onPressed: () {
                                 if (!_disableBtn) {
+<<<<<<< HEAD
                                   if (widget.state
                                       .isUserCorrect(question, currentAnswer)) {
                                     widget.state.decrementLives();
@@ -154,6 +172,32 @@ class _QuizPageState extends State<QuizPage> {
                                     cardKey.currentState.toggleCard();
                                     _answers[_currentIndex] = option;
                                   });
+=======
+                                  //if user is not correct
+                                  print("answer: " + option.toString());
+                                  if (!widget.state
+                                      .isUserCorrect(question, option)) {
+                                        print("not correct");
+                                    setState(() {
+                                     
+                                      currentAnswer = option;
+                                      cardKey.currentState.toggleCard();
+                                      _answers[_currentIndex] = option;
+                                      _correct = false;
+                                       _disableBtn = true;
+                                    });
+                                  }else{
+                                    print("correct");
+                                    setState(() {
+                                      currentAnswer = option;
+                                    _correct = true;
+                                    
+                                    cardKey.currentState.toggleCard();
+                                      _answers[_currentIndex] = option;
+                                      _disableBtn = true;
+                                    });
+                                  }
+>>>>>>> df49785aa9fa2c25053ac53eb7858da44f7b940a
                                 }
                               },
                             ),
@@ -164,7 +208,11 @@ class _QuizPageState extends State<QuizPage> {
                         ],
                       ),
                     ),
+<<<<<<< HEAD
                     _disableBtn
+=======
+                    (_disableBtn && _correct)
+>>>>>>> df49785aa9fa2c25053ac53eb7858da44f7b940a
                         ? Padding(
                             padding: const EdgeInsets.all(58.0),
                             child: ButtonTheme(
@@ -191,14 +239,46 @@ class _QuizPageState extends State<QuizPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) => QuizPage(
+<<<<<<< HEAD
                                                   state: widget.state,
+=======
+                                                  state: widget.state,backgroundColor: widget.backgroundColor,
+>>>>>>> df49785aa9fa2c25053ac53eb7858da44f7b940a
                                                 )));
                                   });
                                 },
                               ),
                             ),
                           )
+<<<<<<< HEAD
                         : Container(),
+=======
+                        : (!_correct && _disableBtn) ? Padding(
+                            padding: const EdgeInsets.all(58.0),
+                            child: ButtonTheme(
+                              minWidth: 150,
+                              height: 50,
+                              buttonColor: Colors.white,
+                              child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(18.0),
+                                ),
+                                child: Text(
+                                  "Spin Again",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.white),
+                                ),
+                                color: Theme.of(context).primaryColor,
+                                onPressed: () {
+                                  GameState savedState = widget.state;
+                                 Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                          ):Container(),
+>>>>>>> df49785aa9fa2c25053ac53eb7858da44f7b940a
 
                     // RadioListTile(
 
