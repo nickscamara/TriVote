@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:votesmarter/screen/home_screen.dart';
-import 'package:votesmarter/screen/test_game_screen_v.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
 class Home extends StatefulWidget {
@@ -17,7 +16,7 @@ class _HomeState extends State<Home> {
       Scaffold(
         body: Text("daw"),
       ),
-      //TestGameScreenV(),
+      //MainGame(),
       HomeScreen(),
       Scaffold(
         body: Text("daw"),
@@ -38,7 +37,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Round 1",style: TextStyle(fontSize: 21),),
+        title: Text("",style: TextStyle(fontSize: 21),),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(

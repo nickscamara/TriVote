@@ -7,24 +7,32 @@ import 'dart:ui';
 import 'package:votesmarter/model/question.dart';
 import 'package:votesmarter/screen/question_screen.dart';
 
-class Luck{
+class Luck {
   final String image;
   final Color color;
 
   Luck(this.image, this.color);
 
-
-  String get asset =>  "assets/img/$image.png";
+  String get asset => "assets/img/$image.png";
 }
-class TestGameScreenV extends StatefulWidget {
+
+class Wheel extends StatefulWidget {
+  Wheel({Key key}) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() {
-    return _TestGameScreenVState();
-  }
+  _WheelState createState() => _WheelState();
 }
 
-class _TestGameScreenVState extends State<TestGameScreenV>
-    with SingleTickerProviderStateMixin {
+class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    var _duration = Duration(milliseconds: 1000);
+    _ctrl = AnimationController(vsync: this, duration: _duration);
+    _ani = CurvedAnimation(parent: _ctrl, curve: Curves.fastLinearToSlowEaseIn);
+  }
+
   double _angle = 0;
   double _current = 0;
   AnimationController _ctrl;
@@ -34,71 +42,23 @@ class _TestGameScreenVState extends State<TestGameScreenV>
     Luck("crown", Color(0xFF9818d6)),
     Luck("problem", Color(0xFFffa41b)),
     Luck("user", Color(0xff04E762)),
-  
   ];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    var _duration = Duration(milliseconds: 5000);
-    _ctrl = AnimationController(vsync: this, duration: _duration);
-    _ani = CurvedAnimation(parent: _ctrl, curve: Curves.fastLinearToSlowEaseIn);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Theme.of(context).primaryColor, Colors.purpleAccent])),
-            child: AnimatedBuilder(
-                animation: _ani,
-                builder: (context, child) {
-                  final _value = _ani.value;
-                  final _angle = _value * this._angle;
-                  return Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      BoardView(items: _items, current: _current, angle: _angle),
-                      _buildGo(),
-                      _buildResult(_value),
-                    ],
-                  );
-                }),
-          ),
-          RawMaterialButton(child: Text("Answer"),onPressed: () {
-            Navigator.of(context).push(new MaterialPageRoute<Null>(
-  builder: (BuildContext context) {
-    return new QuizPage(
-      questions: [
-        Question(
-          question: "What is the name of America?", incorrectAnswers: ["Pegasus","Coconut","Trump"],
-          correctAnswer: "Arlinda",sourceURL: "idjadawdada",explanation: "awdadwa",
-          type: "awdawdadawawd"
-        ),
-        Question(
-          question: "What is the name of America?",answers: ["yes","no"],
-          correctAnswer: "yes",incorrectAnswers: ["no"],sourceURL: "idjadawdada",explanation: "awdadwa",
-          type: "awdawdadawawd"
-        ),
-        Question(
-          question: "What is the name of America?",answers: ["yes","no"],
-          correctAnswer: "yes",incorrectAnswers: ["no"],sourceURL: "idjadawdada",explanation: "awdadwa",
-          type: "awdawdadawawd"
-        ),
-      ],
-    );
-  },
-  fullscreenDialog: true
-));
-          },)
-      ],
-    );
+    return AnimatedBuilder(
+        animation: _ani,
+        builder: (context, child) {
+          final _value = _ani.value;
+          final _angle = _value * this._angle;
+          return Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              BoardView(items: _items, current: _current, angle: _angle),
+              _buildGo(),
+              _buildResult(_value),
+            ],
+          );
+        });
   }
 
   _buildGo() {
@@ -150,7 +110,6 @@ class _TestGameScreenVState extends State<TestGameScreenV>
     );
   }
 }
-
 
 class BoardView extends StatefulWidget {
   final double angle;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:votesmarter/screen/test_game_screen_v.dart';
+import 'package:votesmarter/screen/main_game.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
           child: RaisedButton(
         onPressed: () {
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => TestGameScreenV()));
+              MaterialPageRoute(builder: (_) => MainGame()));
         },
         padding: EdgeInsets.only(left: 25, right: 25, top: 10, bottom: 10),
         shape: RoundedRectangleBorder(
