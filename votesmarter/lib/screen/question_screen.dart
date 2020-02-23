@@ -6,8 +6,8 @@ import 'package:flip_card/flip_card.dart';
 import 'package:votesmarter/state/game_state.dart';
 
 class QuizPage extends StatefulWidget {
-  final GameState state;
-  const QuizPage({Key key, @required this.state}) : super(key: key);
+  GameState state;
+  QuizPage({Key key, @required this.state}) : super(key: key);
 
   @override
   _QuizPageState createState() => _QuizPageState();
@@ -19,7 +19,7 @@ class _QuizPageState extends State<QuizPage> {
   final Map<int, dynamic> _answers = {};
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
-
+  bool _disableBtn = false;
   @override
   Widget build(BuildContext context) {
     final TextStyle _questionStyle = TextStyle(
@@ -129,6 +129,7 @@ class _QuizPageState extends State<QuizPage> {
                             height: 50,
                             buttonColor: Colors.white,
                             child: RaisedButton(
+                              
                               shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(18.0),
                               ),
@@ -148,23 +149,62 @@ class _QuizPageState extends State<QuizPage> {
                                           ? Colors.green
                                           : Colors.red,
                               onPressed: () {
+                                if(!_disableBtn)
+                                {
+
+                               
                                 if (widget.state.isUserCorrect(question, currentAnswer)) {
                                   widget.state.decrementLives();
                                 }
                                 setState(() {
+                                  _disableBtn = true;
                                   currentAnswer = option;
                                   cardKey.currentState.toggleCard();
                                   _answers[_currentIndex] = option;
                                 });
-                              },
+                              }
+                                }
+                              ,
                             ),
                           ),
                           SizedBox(
                             height: 10,
-                          )
+                          ),
+                          
                         ],
                       ),
                     ),
+                    _disableBtn ? Padding(
+                      padding: const EdgeInsets.all(58.0),
+                      child: ButtonTheme(
+                              minWidth: 150,
+                              height: 50,
+                              buttonColor: Colors.white,
+                              child: RaisedButton(
+                                
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(18.0),
+                                ),
+                                child: Text(
+                                  "Next",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.white
+                                  ),
+                                ),
+                                color: Theme.of(context).primaryColor,
+                                onPressed: () {
+                                  GameState savedState = widget.state;
+                                  setState(() {
+                                    _currentIndex++;
+                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> QuizPage(state: widget.state,)));
+                                    
+                                  });
+                                },),),
+                    ):Container(),
+                    
+
                     // RadioListTile(
 
                     //   title: Text(HtmlUnescape().convert("$option")),
