@@ -21,10 +21,16 @@ class _QuizPageState extends State<QuizPage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
   bool _disableBtn = false;
-  
+  Question question;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    question = widget.state.getQuestionByTopic();
+  }
   @override
   Widget build(BuildContext context) {
-    Question question = widget.state.getQuestionByTopic();
+    
 
     final TextStyle _questionStyle = TextStyle(
         fontSize: 30.0, fontWeight: FontWeight.w500, color: Colors.black);
