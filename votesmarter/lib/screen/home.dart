@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:votesmarter/screen/friends_screen.dart';
 import 'package:votesmarter/screen/home_screen.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:votesmarter/screen/leaderboard_screen.dart';
@@ -18,9 +19,7 @@ class _HomeState extends State<Home> {
   void initState() {
     _viewsByIndex = <Widget>[
       HomeScreen(),
-      Scaffold(
-        body: Text("daw"),
-      ),
+      FriendsScreen(),
       //MainGame(),
       
       LeaderBoardScreen(),
@@ -36,12 +35,16 @@ class _HomeState extends State<Home> {
     });
   }
   String _getName(int index){
-    if(index == 2)
+    if(index == 1)
+    {
+      return "Friends";
+    }
+    else if(index == 2)
     {
       return "Leaderboard";
     } else if(index == 3)
     {
-      return "Leaderboard";
+      return "Profile";
     }
     else
     {
