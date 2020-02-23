@@ -75,7 +75,7 @@ class _HomeState extends State<Home> {
     );
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: AppBar(
+      appBar: _selectedNavIndex != 0 ?AppBar(
         centerTitle: true,
         title: Text(_getName(_selectedNavIndex),style: TextStyle(fontSize: 21),),
         flexibleSpace: Container(
@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
                   end: Alignment.bottomCenter,
                   colors: <Color>[Theme.of(context).primaryColor,Colors.purple])),
         ),
-      ),
+      ):null,
       body: _viewsByIndex[_selectedNavIndex],
       bottomNavigationBar: navBar,
     );

@@ -194,15 +194,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
         Padding(
           padding: const EdgeInsets.all(15.0),
           child: Align(
-            alignment: Alignment.bottomRight,
-                    child: FloatingActionButton(backgroundColor: Theme.of(context).primaryColor,onPressed: (){
-                       final GameState state = new GameState();
+            alignment: Alignment.bottomCenter,
+                    child: RaisedButton(
+        onPressed: () {
+          final GameState state = new GameState();
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => MainGame(state: state)));
-                    },
-            child: Icon(Icons.add,color: Colors.white,),),
+        },
+        padding: EdgeInsets.only(left: 25, right: 25, top: 10, bottom: 10),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Text(
+          'Start Game',
+          style: TextStyle(color: Colors.white, fontSize: 25),
+        ),
+        color: Theme.of(context).primaryColor,
+      )),
           ),
-        )
+        
       ],
     );
   }
