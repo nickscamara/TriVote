@@ -40,10 +40,15 @@ class _QuizPageState extends State<QuizPage> {
     final TextStyle _questionStyle = TextStyle(
         fontSize: 30.0, fontWeight: FontWeight.w500, color: Colors.black);
     List<dynamic> options = new List<dynamic>();
-    if (!widget.state.gameIsFinished()) {
+    try {
       options = question.incorrectAnswers;
+    } catch (Exception) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (_) => GameResultsScreen(state: widget.state)));
     }
-    if (question.correctAnswer != null && !options.contains(question.correctAnswer)) {
+    if (!options.contains(question.correctAnswer)) {
       options.add(question.correctAnswer);
       options.shuffle();
     }
