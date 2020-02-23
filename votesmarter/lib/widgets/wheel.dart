@@ -16,6 +16,8 @@ class Luck {
 
   Luck(this.image, this.color);
 
+  Color get widgetColor => color;
+
   String get asset => "assets/img/$image.png";
 }
 
@@ -33,12 +35,15 @@ class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
   final Duration _animationDuration = Duration(milliseconds: 1500);
   final Duration _waitingDuration = Duration(milliseconds: 2000);
 
+  Luck _luck;
+
   Future<void> _waitForAnimationToFinish() {
     widget.state.incrementGameRound();
     return Future.delayed(_waitingDuration)
         .then((onValue) => Navigator.of(context).push(MaterialPageRoute(
               builder: (_) => QuizPage(
                 state: widget.state,
+                backgroundColor: _luck.widgetColor,
               ),
             )));
   }
@@ -60,6 +65,7 @@ class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
     Luck("policy", Color(0xFFffa41b)),
     Luck("candidates", Color(0xff04E762)),
   ];
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -119,6 +125,7 @@ class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
   _buildResult(_value) {
     var _index = _calIndex(_value * _angle + _current);
     String _asset = _items[_index].asset;
+    _luck = _items[_index];
     widget.state.setTopic(_asset);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -205,6 +212,7 @@ class _BoardViewState extends State<BoardView> {
 
   _buildImage(Luck luck) {
     var _rotate = _rotote(widget.items.indexOf(luck));
+    
     return Transform.rotate(
       angle: _rotate,
       child: Container(

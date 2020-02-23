@@ -7,7 +7,8 @@ import 'package:votesmarter/state/game_state.dart';
 
 class QuizPage extends StatefulWidget {
   final GameState state;
-  QuizPage({Key key, @required this.state}) : super(key: key);
+  final Color backgroundColor;
+  QuizPage({Key key, @required this.state, this.backgroundColor}) : super(key: key);
 
   @override
   _QuizPageState createState() => _QuizPageState();
@@ -37,11 +38,8 @@ class _QuizPageState extends State<QuizPage> {
         key: _key,
         appBar: AppBar(
           centerTitle: true,
-          leading: Icon(Icons.question_answer),
-          title: Text(
-            "Civics Question",
-            textAlign: TextAlign.center,
-          ),
+          automaticallyImplyLeading: false,
+          backgroundColor: widget.backgroundColor,
           actions: <Widget>[
             Center(
                 child: GestureDetector(
@@ -61,7 +59,7 @@ class _QuizPageState extends State<QuizPage> {
           ClipPath(
             clipper: WaveClipperTwo(),
             child: Container(
-              decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+              decoration: BoxDecoration(color: widget.backgroundColor),
               height: 380,
             ),
           ),
