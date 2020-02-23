@@ -23,7 +23,7 @@ class _GameResultsScreenState extends State<GameResultsScreen> {
     ];
     double score = widget.state.calculateTotalScore;
     String informed;
-    if (score > 150)
+    if (score > 500)
       informed = " informed.";
     else
       informed = " not informed.";
