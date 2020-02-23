@@ -27,9 +27,11 @@ class Wheel extends StatefulWidget {
 
 class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
 
+  final Duration _animationDuration = Duration(milliseconds: 1500);
+  final Duration _waitingDuration = Duration(milliseconds: 2000);
 
   Future<void> _waitForAnimationToFinish() {
-    return Future.delayed(Duration(milliseconds: 1500)).then((onValue) => Navigator.of(context).push(
+    return Future.delayed(_waitingDuration).then((onValue) => Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => QuizPage(questions: [
           Question(
                             question: "What is the name of America?",
@@ -64,8 +66,7 @@ class _WheelState extends State<Wheel> with SingleTickerProviderStateMixin {
   void initState() {
     // TODO: implement initState
     super.initState();
-    var _duration = Duration(milliseconds: 1000);
-    _ctrl = AnimationController(vsync: this, duration: _duration);
+    _ctrl = AnimationController(vsync: this, duration: _animationDuration);
     _ani = CurvedAnimation(parent: _ctrl, curve: Curves.fastLinearToSlowEaseIn);
   }
 
