@@ -42,24 +42,14 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     return Scaffold(
+       resizeToAvoidBottomPadding: false,
       key: _key,
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
         backgroundColor: widget.backgroundColor,
-        actions: <Widget>[
-          Center(
-              child: GestureDetector(
-            onTap: () {
-              widget.state.decrementLives();
-              Navigator.pop(context);
-            },
-            child: Text(
-              "Pop",
-              style: TextStyle(fontSize: 20),
-            ),
-          ))
-        ],
+        title: Text(question.categoryName.toString().toUpperCase()),
+        
         elevation: 0,
       ),
       body: Stack(
@@ -111,9 +101,16 @@ class _QuizPageState extends State<QuizPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Expanded(
+                          !_correct ? Expanded(
                             child: Text(
-                              "Explanation hehe",
+                             question.explanation,
+                              softWrap: true,
+                              style: _questionStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                          ) : Expanded(
+                            child: Text(
+                             question.funFact,
                               softWrap: true,
                               style: _questionStyle,
                               textAlign: TextAlign.center,
@@ -124,7 +121,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 100.0),
+                SizedBox(height: 50.0),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -186,16 +183,16 @@ class _QuizPageState extends State<QuizPage> {
                             ),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 15,
                           ),
                         ],
                       ),
                     ),
                     (_disableBtn && _correct)
                         ? Padding(
-                            padding: const EdgeInsets.all(58.0),
+                            padding: const EdgeInsets.only(left: 100,right: 100),
                             child: ButtonTheme(
-                              minWidth: 150,
+                              minWidth: 10,
                               height: 50,
                               buttonColor: Colors.white,
                               child: RaisedButton(
@@ -209,7 +206,7 @@ class _QuizPageState extends State<QuizPage> {
                                       fontWeight: FontWeight.w300,
                                       color: Colors.white),
                                 ),
-                                color: Theme.of(context).primaryColor,
+                                color: widget.backgroundColor,
                                 onPressed: () {
                                   GameState savedState = widget.state;
                                   setState(() {
@@ -226,9 +223,9 @@ class _QuizPageState extends State<QuizPage> {
                             ),
                           )
                         : (!_correct && _disableBtn) ? Padding(
-                            padding: const EdgeInsets.all(58.0),
+                            padding: const EdgeInsets.only(left:100, right: 100),
                             child: ButtonTheme(
-                              minWidth: 150,
+                              minWidth: 10,
                               height: 50,
                               buttonColor: Colors.white,
                               child: RaisedButton(
@@ -242,7 +239,7 @@ class _QuizPageState extends State<QuizPage> {
                                       fontWeight: FontWeight.w300,
                                       color: Colors.white),
                                 ),
-                                color: Theme.of(context).primaryColor,
+                                color: widget.backgroundColor,
                                 onPressed: () {
                                   GameState savedState = widget.state;
                                  Navigator.pop(context);
