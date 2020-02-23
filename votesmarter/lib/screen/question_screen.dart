@@ -20,11 +20,13 @@ class _QuizPageState extends State<QuizPage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
   bool _disableBtn = false;
+  
   @override
   Widget build(BuildContext context) {
+    Question question = widget.state.getQuestionByTopic();
+
     final TextStyle _questionStyle = TextStyle(
         fontSize: 30.0, fontWeight: FontWeight.w500, color: Colors.black);
-    Question question = widget.state.getQuestionByTopic();
     final List<dynamic> options = question.incorrectAnswers;
     if (!options.contains(question.correctAnswer)) {
       options.add(question.correctAnswer);
