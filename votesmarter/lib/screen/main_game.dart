@@ -38,15 +38,6 @@ class _MainGameState extends State<MainGame>
         centerTitle: true,
         title: Text('Round ' + widget.state.currentGameRound.toString()),
         elevation: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => GameResultsScreen(
-                        state: widget.state,
-                      ))),
-          icon: Icon(Icons.exit_to_app),
-        ),
       ),
       body: Container(
         child: Stack(
