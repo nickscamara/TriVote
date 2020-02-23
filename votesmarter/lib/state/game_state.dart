@@ -134,8 +134,7 @@ class GameState {
             "Recognize any marriages between humans and animals",
             "Recognize any marriages between transgender couples"
           ],
-          correctAnswer:
-              "Recognize any marriages between same sex couples",
+          correctAnswer: "Recognize any marriages between same sex couples",
           sourceURL: "https://www.glaad.org/marriage/doma",
           categoryName: "policy",
           explanation:
@@ -226,7 +225,6 @@ class GameState {
   };
   final Random _random = Random();
 
-
   // We need to track the current round we are on
   int _currentGameRound;
   get currentGameRound => _currentGameRound;
@@ -249,23 +247,38 @@ class GameState {
     this._topic = topic;
   }
 
-  double _numCivicsCorrect, _numCivicsTotal;
-  double get calculateCivicsScore =>
-      ((_numCivicsCorrect / _numCivicsTotal) * 100);
+  double _numCivicsCorrect = 0, _numCivicsTotal;
+  double calculateCivicsScore() {
+    if (_numCivicsTotal == 0) return 0;
+    return ((_numCivicsCorrect / _numCivicsTotal) * 100);
+  }
+      
   double get totalCivics => _numCivicsTotal;
+  double get civicsCorrect => _numCivicsCorrect;
 
-  double _numPolicyCorrect, _numPolicyTotal;
-  double get calculatePolicyScore =>
-      ((_numPolicyCorrect / _numPolicyTotal) * 100);
+  double _numPolicyCorrect = 0, _numPolicyTotal;
+
+  double calculatePolicyScore() {
+    if (_numPolicyTotal == 0) return 0;
+    return ((_numPolicyCorrect / _numPolicyTotal) * 100);
+  }
+      
   double get totalPolicy => _numPolicyTotal;
+  double get policyCorrect => _numPolicyCorrect;
 
-  double _numCandidatesCorrect, _numCandidatesTotal;
-  double get calculateCandidatesScore =>
-      ((_numCandidatesCorrect / _numCandidatesTotal) * 100);
+  double _numCandidatesCorrect = 0, _numCandidatesTotal;
+
+  double calculateCandidateScore() {
+    if (_numCandidatesTotal == 0) return 0;
+    return ((_numCandidatesCorrect / _numCandidatesTotal) * 100);
+  }
+      
   double get totalCandidates => _numCivicsTotal;
+  double get candidatesCorrect => _numCandidatesCorrect;
 
-  double get calculateTotalScore =>
-      (calculatePolicyScore + calculateCivicsScore + calculateCandidatesScore);
+  double calculateTotalScore() { 
+    return (calculatePolicyScore() + calculateCivicsScore() + calculateCandidateScore());
+  }
 
   void incrementGameRound() {
     _currentGameRound++;
@@ -311,14 +324,14 @@ class GameState {
   GameState() {
     done = false;
     _topic = "";
-    _currentGameRound = 1;
+    _currentGameRound = 0;
     _lives = 3;
-    _numCandidatesCorrect = 1;
-    _numCandidatesTotal = 1;
-    _numCivicsCorrect = 1;
-    _numCivicsTotal = 1;
-    _numPolicyCorrect = 1;
-    _numPolicyTotal = 1;
+    _numCandidatesCorrect = 0;
+    _numCandidatesTotal = 0;
+    _numCivicsCorrect = 0;
+    _numCivicsTotal = 0;
+    _numPolicyCorrect = 0;
+    _numPolicyTotal = 0;
   }
   GameState.fromState(GameState state) {
     _topic = state._topic;

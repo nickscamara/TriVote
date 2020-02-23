@@ -2,6 +2,62 @@ import 'package:flutter/material.dart';
 import 'package:spider_chart/spider_chart.dart';
 import '../state/game_state.dart';
 
+import 'package:charts_flutter/flutter.dart' as charts;
+
+class GameStateResult {
+  final String category;
+  final int numberCorrect;
+  final charts.Color color;
+
+
+  GameStateResult(this.category, this.numberCorrect, {this.color});
+}
+
+class ResultsBarChart extends StatefulWidget {
+  final GameState state;
+  ResultsBarChart({this.state});
+
+  @override
+  _ResultsBarChartState createState() => _ResultsBarChartState();
+}
+
+class _ResultsBarChartState extends State<ResultsBarChart> {
+  @override
+  Widget build(BuildContext context) {
+    
+    final testData = [
+      new GameStateResult('Civics', widget.state.totalCivics.round(), color: charts.Color(r: 250, g: 128, b: 114)),
+      new GameStateResult('Candidates', widget.state.totalCandidates.round(), color: charts.Color(r: 0, g: 255, b: 127)), //(0,255,127
+      new GameStateResult('Policy', widget.state.totalPolicy.round(), color: charts.Color(r:2550, g: 69, b: 127)), // 255,69,0
+    ];
+
+    print(widget.state.civicsCorrect.round().toString());
+    print( widget.state.candidatesCorrect.round().toString());
+    print(widget.state.policyCorrect.round().toString());
+
+    var series = [
+      new charts.Series(
+        id: 'Results',
+        data: testData,
+        domainFn: (GameStateResult stateResult, _) => stateResult.category,
+        measureFn: (GameStateResult stateResult, _) =>
+            stateResult.numberCorrect,
+        colorFn: (GameStateResult stateResult, _) => stateResult.color
+      )
+    ];
+
+    var chart = new charts.BarChart(series, animate: true);
+
+    return Padding(
+      padding: EdgeInsets.all(32.0),
+      child: SizedBox(
+        height: 200.0,
+        child: chart,
+      ),
+    );
+  }
+}
+
 class GameResultsScreen extends StatefulWidget {
   final GameState state;
   GameResultsScreen({this.state});
@@ -21,9 +77,10 @@ class _GameResultsScreenState extends State<GameResultsScreen> {
       (widget.state.totalPolicy),
       (widget.state.totalCandidates)
     ];
-    double score = widget.state.calculateTotalScore;
+    double score = data[0] + data[1] + data[2];
+    print("SCORE: " + score.toString());
     String informed;
-    if (score > 500)
+    if (score > 10)
       informed = " informed.";
     else
       informed = " not informed.";
@@ -72,7 +129,12 @@ class _GameResultsScreenState extends State<GameResultsScreen> {
                   maxValue: 6),
             ),
           ),
-          SizedBox(height: 50),
+          SizedBox(height: 10),
+          Center(
+            child: Container(
+              child: ResultsBarChart(state: widget.state,),
+            ),
+          ),
           Center(
             child: Text(
               'You are' + informed,
