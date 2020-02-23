@@ -280,13 +280,6 @@ class GameState {
       proposedQuestion = questions[this._topic]
           .elementAt((_random.nextInt(questions[this._topic].length)));
     }
-    if (questions[this._topic] != null && questions[this._topic].length != 1) {
-      questions[this._topic].remove(proposedQuestion);
-    } else if (questions[this._topic] != null && questions[this._topic].length == 1) {
-      // We won
-      done = true;
-      return null;
-    }
     if (this._topic == "assets/img/civics.png") {
       _numCivicsTotal++;
     } else if (this._topic == "assets/img/policy.png") {
