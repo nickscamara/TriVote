@@ -112,9 +112,9 @@ class GameState {
               "https://en.wikipedia.org/wiki/Foreign_relations_of_the_United_States",
           categoryName: "policy",
           explanation:
-              "There are only Five UN countries that do not have official relations with the US, including: Bhutan, Iran, North Korea and Syria and (ii) the UN observer State of Palestine",
+              "There are only Five UN countries that do not have official relations with the US, including: Bhutan, Iran, North Korea and Syria and the UN observer State of Palestine",
           funFact:
-              "There are only Five UN countries that do not have official relations with the US, including: Bhutan, Iran, North Korea and Syria and (ii) the UN observer State of Palestine"),
+              "There are only Five UN countries that do not have official relations with the US, including: Bhutan, Iran, North Korea and Syria and the UN observer State of Palestine"),
       Question(
           question:
               "Which country pays the most for the anti-cancer drug, Avastin?",
@@ -131,7 +131,7 @@ class GameState {
           question:
               "What did the “Defense of Marriage Act” prevent the federal government from doing?",
           incorrectAnswers: [
-            "Recognize any marriages between humans and animals or inanimate objects",
+            "Recognize any marriages between humans and animals",
             "Recognize any marriages between transgender couples"
           ],
           correctAnswer:
