@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:votesmarter/screen/dashboard_screen.dart';
 import 'package:votesmarter/screen/friends_screen.dart';
 import 'package:votesmarter/screen/home_screen.dart';
 import 'package:flare_flutter/flare_actor.dart';
@@ -18,7 +19,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     _viewsByIndex = <Widget>[
-      HomeScreen(),
+      DashboardScreen(),
       FriendsScreen(),
       //MainGame(),
       
