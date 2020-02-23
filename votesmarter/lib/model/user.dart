@@ -19,4 +19,6 @@ new User(name: "Ben",score: "185",pcentage: "89%",date: "February 15th, 2020"),
 new User(name: "Will",score: "180",pcentage: "85%",date: "February 25th, 2020"),
 new User(name: "Giulia",score: "170",pcentage: "84%",date: "February 9th, 2020"),
 new User(name: "Monica",score: "150",pcentage: "80%",date: "February 8th, 2020"),
+new User(name: "Jackson",score: "145",pcentage: "79%",date: "January 11th, 2020"),
+new User(name: "Gabriela",score: "140",pcentage: "77%",date: "January 15th, 2020"),
 ];
