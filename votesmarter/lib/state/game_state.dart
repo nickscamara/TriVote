@@ -63,6 +63,7 @@ class GameState {
       }
       return true;
     } else {
+      _lives--;
       return false;
     }
   }

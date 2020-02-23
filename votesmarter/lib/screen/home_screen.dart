@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
         child: Center(
           child: RaisedButton(
         onPressed: () {
-          final GameState state = GameState();
+          final GameState state = new GameState();
           Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => MainGame(state: state)));
         },
