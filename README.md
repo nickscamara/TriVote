@@ -5,7 +5,7 @@ Competitive Trivia game made with Flutter.
 
 ## UI/UX
 ### Solution
-![alt text](https://raw.githubusercontent.com/nickscamara/TriVote/master/votesmarter/assets/trivote0.png)
+![Alt text](votesmarter/assets/trivote0.PNG?raw=true "Title")
 ### Home, Profile and Leaderboard Screen
 ![alt text](https://raw.githubusercontent.com/nickscamara/TriVote/master/votesmarter/assets/trivote1.png)
 ### Gameplay Screen
