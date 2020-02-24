@@ -1,2 +1,3 @@
-# HackathonTeam4
-Hack New Hampshire 2020 - Team 4
+# TriVote
+Winner of the Hack New Hampshire 2020 (Creative Impact track)
+
