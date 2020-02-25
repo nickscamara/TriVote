@@ -1,5 +1,6 @@
 # TriVote
-Winner of the Hack New Hampshire 2020 (Creative Impact track)
+Winner of the Hack New Hampshire 2020 (Creative Impact track)   
+Contributers are Nick Camara, Benjamin Whitehead, Caleb Peffer, William Tu
 
 ## What is TriVote?
 TriVote is a competitive Trivia game made with Flutter. The game allows users to compete against friends by responding questions related to the political system.
