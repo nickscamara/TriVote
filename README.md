@@ -3,7 +3,9 @@ Winner of the Hack New Hampshire 2020 (Creative Impact track)
 Contributers are Nick Camara, Benjamin Whitehead, Caleb Peffer, William Tu
 
 ## What is TriVote?
-TriVote is a competitive Trivia game made with Flutter. The game allows users to compete against friends by responding questions related to the political system.
+TriVote is a competitive Trivia game made with Flutter that aims to improve educated voter turnout. To accomplish this, Trivote gives users direct feedback on how educated they are compared to other voters, while using its fun, engagingly competitive design to educate voters on key issues.
+
+The game allows pits users against their friends by having them respond to questions related to the political system.
 ### How does it work?
 Players spin the wheel and answers questions about specific categories listed down below. Each player has 3 lives and they keep answering questions until they lose them. At the end, a report is showed to the user in which demonstrates a summary of their answers and how to improve upon them.
 
