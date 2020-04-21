@@ -19,9 +19,9 @@ Players spin the wheel and answers questions about specific categories listed do
 ## Design
 ### Our Solution & Logo
 ![Alt text](votesmarter/assets/trivote0.PNG?raw=true "Solution")
-### Home, Profile and Leaderboard Screen
-![Alt text](votesmarter/assets/trivote1.PNG?raw=true "Home Screen")
 ### Gameplay Screen
+![Alt text](votesmarter/assets/trivote1.PNG?raw=true "Home Screen")
+### Home, Profile and Leaderboard Screen
 ![Alt text](votesmarter/assets/trivote2.PNG?raw=true "Gameplay Screen")
 
 ### Philosophy behind the Design
