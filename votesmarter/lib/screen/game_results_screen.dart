@@ -83,7 +83,7 @@ class _GameResultsScreenState extends State<GameResultsScreen> {
     if (score > 10)
       informed = " informed.";
     else
-      informed = " not informed.";
+      informed = " not informed";
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(10),
